@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\AddUserType;
+use App\Service\ImageUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,19 +20,21 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/user", name="index")
+     * @Route("profil", name="profil")
      */
-    public function index(): Response
+    public function profil(): Response
     {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
+        $user = $this->getUser();
+        
+        return $this->render('user/profil.html.twig', [
+            'user' => $user,
         ]);
     }
 
     /**
-     * @Route("add",name="add")
+     * @Route("signin",name="signin")
      */
-    public function add(Request $request, UserPasswordHasherInterface $encoder)
+    public function add(Request $request, UserPasswordHasherInterface $encoder, ImageUploader $imageUploader)
     {
         $user = new User();
 
@@ -43,14 +46,18 @@ class UserController extends AbstractController
             // password encoding
             $user->setPassword($encoder->hashPassword($user, $user->getPassword()));
 
+            $newAvatarName = $imageUploader->upload($form, 'avatar');
+            $user->setAvatar($newAvatarName);
+
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('user_add');
+            return $this->redirectToRoute('user_signin');
         }
 
-        return $this->render('user/add.html.twig', [
+        return $this->render('user/signin.html.twig', [
             'form' => $form->createView(),
         ]);
     }

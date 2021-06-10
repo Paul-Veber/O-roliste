@@ -1,0 +1,25 @@
+<nav>
+
+	{% if is_granted('ROLE_USER') %}
+		<ul>
+			<li>
+				{% if user.avatar is not null %}
+					{% set images_directory = app.request.server.get('UPLOAD_IMAGES_DIRECTORY') %}
+					<img src="{{ asset(images_directory ~ '/' ~ user.avatar)}}" alt="" height="50">
+				{% endif %}
+			</li>
+			<li>
+				<a href="#">Message</a>
+			</li>
+			<li>
+				<a href="#">Notifications</a>
+			</li>
+			<li>
+				<a href="#">Liste d'amis</a>
+			</li>
+		</ul>
+
+	{% endif %}
+
+
+</nav>
