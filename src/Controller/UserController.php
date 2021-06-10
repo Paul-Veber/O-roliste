@@ -61,4 +61,34 @@ class UserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("edit", name="edit")
+     */
+    public function edit(Request $request, UserPasswordHasherInterface $encoder)
+    {
+        $user = $this->getUser();
+
+       // $this->denyAccessUnlessGranted('EDIT_PASSWORD', $user);
+
+        $form = $this->createForm(AddUserType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $user->setPassword($encoder->hashPassword($user, $user->getPassword()));
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+        //    $this->addFlash('success', 'Mot de passe modifié.');
+
+            return $this->redirectToRoute('user_profil');
+        }
+
+        return $this->render('user/edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }
