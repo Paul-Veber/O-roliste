@@ -1,25 +1,35 @@
-<nav>
-
-	{% if is_granted('ROLE_USER') %}
-		<ul>
-			<li>
-				{% if user.avatar is not null %}
-					{% set images_directory = app.request.server.get('UPLOAD_IMAGES_DIRECTORY') %}
-					<img src="{{ asset(images_directory ~ '/' ~ user.avatar)}}" alt="" height="50">
-				{% endif %}
-			</li>
-			<li>
-				<a href="#">Message</a>
-			</li>
-			<li>
-				<a href="#">Notifications</a>
-			</li>
-			<li>
-				<a href="#">Liste d'amis</a>
-			</li>
-		</ul>
-
-	{% endif %}
-
-
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="container-fluid">
+		{% if is_granted('ROLE_USER') %}
+					{% if app.user.avatar is not null %}
+						{% set images_directory = app.request.server.get('UPLOAD_IMAGES_DIRECTORY') %}
+						<a href="{{path("user_profil")}}">
+							<img src="{{ asset(images_directory ~ '/' ~ app.user.avatar)}}" class="rounded-circle" width="50" height="50" alt="{{app.user.username}}">
+						</a>
+					{% endif %}
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+							<li class="nav-item">
+								<a class="nav-link" href="#">Message</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Notifications</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Liste d'amis</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Accueil</a>
+							</li>
+							<li
+								class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Se deconnecter</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+		{% endif %}
+	</div>
 </nav>
