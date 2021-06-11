@@ -6,11 +6,16 @@ Authore link : http://bootstrapthemes.co
 */
 html,
 body{
-    font-size:18px;
+    font-size:16px;
     background:rgb(255, 255, 255); 
-    background-image:  url("../images/background/background.jpg");
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
+
+    background: url("../images/background/background.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 h1,
 h2,
@@ -38,6 +43,22 @@ h4 {
     font-size: 1.222rem;
     line-height: 2rem;
     font-weight: 700;
+}
+label{
+    color: #ddd;
+}
+form{
+    width: 50%;
+    margin: auto;
+  
+    
+}
+.card--form{
+    padding-top: 1rem;
+    background-color: #212529;
+    padding-bottom: 2rem;
+    width: 55%;
+    margin:auto;
 }
 .navbar-brand {
     margin-top: 1.5rem;
@@ -141,6 +162,7 @@ input[type=date], input[type=datetime-local], input[type=email], input[type=numb
     padding: 0 1rem;
      list-style: none;
     flex-direction: row;
+    margin-bottom: 1rem;
 }
 
 .navbar-nav .nav-link{
