@@ -4,10 +4,12 @@
 
 	<h2>Modification du profil</h2>
 {# edit user forms #}
+<div>
 	{{ form_start(form) }}
 	{{ form_widget(form) }}
-	<button type="submit" class="btn btn-danger">Modifier</button>
+	<button type="submit" class="btn btn-danger">Valider</button>
+	<a href="{{path('user_edit-password')}}"><button type="button" class="btn btn-danger">Modifier le mot de passe</button></a>
 	{{ form_end(form) }}
-
+</div>
 
 {% endblock %}

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\AddUserType;
+use App\Form\EditPasswordType;
 use App\Form\EditUserType;
 use App\Service\ImageUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,13 +50,16 @@ class UserController extends AbstractController
 
             $newAvatarName = $imageUploader->upload($form, 'avatar');
             $user->setAvatar($newAvatarName);
-
+            //add default avatar image if the field is empty
+            if($user->getAvatar() == null){
+               $user->setAvatar("default/avatar-default.jpg");
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('user_signin');
+            return $this->redirectToRoute('user_profil');
         }
 
         return $this->render('user/signin.html.twig', [
@@ -66,7 +70,7 @@ class UserController extends AbstractController
     /**
      * @Route("edit", name="edit")
      */
-    public function edit(Request $request, UserPasswordHasherInterface $encoder)
+    public function edit(Request $request, ImageUploader $imageUploader)
     {
         $user = $this->getUser();
 
@@ -78,7 +82,10 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {     
 
-            $user->setPassword($encoder->hashPassword($user, $user->getPassword()));
+            //upload avatar
+            $newAvatarName = $imageUploader->upload($form, 'avatar');
+            $user->setAvatar($newAvatarName);
+
             $user->setUpdatedAt(new \DateTime());
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -94,4 +101,32 @@ class UserController extends AbstractController
             'user' => $user,
         ]);
     }
+
+    /**
+     * @Route("edit-password", name="edit-password")
+     */
+    public function editPassword(Request $request, UserPasswordHasherInterface $encoder)
+    {
+        $user = $this->getUser();
+
+        $form = $this->createForm(EditPasswordType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $user->setPassword($encoder->hashPassword($user, $user->getPassword()));
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+            $this->addFlash('success', 'Mot de passe modifié.');
+
+            return $this->redirectToRoute('user_profil');
+        }
+
+        return $this->render('user/editpassword.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
 }

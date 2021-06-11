@@ -20,23 +20,20 @@ class EditUserType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
+                'label' => 'e-mail',
                 'constraints' => new NotBlank(),
             ])
             ->add('username', TextType::class, [
+                'label' => 'Pseudo',
                 'constraints' => new NotBlank(),
             ])
-            ->add('password', RepeatedType::class, array(
-                'type' => PasswordType::class,
-                'constraints' => new NotBlank(),
-                'invalid_message' => 'Les mots de passe doivent correspondre',
-                'first_options'  => array('label' => 'Nouveau mot de passe'),
-                'second_options' => array('label' => 'Répéter le mot de passe'),
-            ))
             ->add('avatar', FileType::class, [
+                'label'=>'Avatar',
                 'required' => false,
-                'mapped' => false,
+                'mapped'=>false,
             ])
             ->add('description', TextareaType::class, [
+                'label'=>'Description',
                 'required' => false,
             ]);
     }

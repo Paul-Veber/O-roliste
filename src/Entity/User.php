@@ -63,7 +63,6 @@ class User implements UserInterface//, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->setRoles(["ROLE_USER"]);
-        $this->setAvatar("default/avatar-default.jpg");
         $this->createdAt=new \Datetime(); 
     }
 
