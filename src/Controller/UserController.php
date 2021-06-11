@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\AddUserType;
+use App\Form\EditUserType;
 use App\Service\ImageUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,24 +72,26 @@ class UserController extends AbstractController
 
        // $this->denyAccessUnlessGranted('EDIT_PASSWORD', $user);
 
-        $form = $this->createForm(AddUserType::class, $user);
+        $form = $this->createForm(EditUserType::class, $user);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {     
 
             $user->setPassword($encoder->hashPassword($user, $user->getPassword()));
+            $user->setUpdatedAt(new \DateTime());
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
-        //    $this->addFlash('success', 'Mot de passe modifié.');
+            $this->addFlash('success', 'Profil modifié.');
 
             return $this->redirectToRoute('user_profil');
         }
 
         return $this->render('user/edit.html.twig', [
             'form' => $form->createView(),
+            'user' => $user,
         ]);
     }
 }

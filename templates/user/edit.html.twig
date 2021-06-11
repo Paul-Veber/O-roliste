@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<h2>Modification du profil</h2>
+{# edit user forms #}
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+	<button type="submit" class="btn btn-danger">Modifier</button>
+	{{ form_end(form) }}
+
+
+{% endblock %}
