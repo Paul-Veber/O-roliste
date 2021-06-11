@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container-fluid">
 		{% if app.user is null %}
-			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+			<ul class="navbar me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
 					<a href="{{path("app_login")}}">
 						<button class="btn btn-danger" type="button">
@@ -19,32 +19,40 @@
 			</ul>
 		{% else %}
 
-			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+			<ul class="navbar me-auto mb-2 mb-lg-0">
+
 				{% if is_granted('ROLE_USER') %}
 					{% if app.user.avatar is not null %}
-						{% set images_directory = app.request.server.get('UPLOAD_IMAGES_DIRECTORY') %}
-						<a href="{{path("user_profil")}}">
-							<img src="{{ asset(images_directory ~ '/' ~ app.user.avatar)}}" class="rounded-circle" width="50" height="50" alt="{{app.user.username}}">
-						</a>
+						<li class="nav-item">
+							{% set images_directory = app.request.server.get('UPLOAD_IMAGES_DIRECTORY') %}
+							<a href="{{path("user_profil")}}">
+								<img src="{{ asset(images_directory ~ '/' ~ app.user.avatar)}}" class="rounded-circle" width="50" height="50" alt="{{app.user.username}}">
+							</a>
+						</li>
 					{% endif %}
-
-					<li class="nav-item">
-						<a class="nav-link" href="#">Message</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Notifications</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Liste d'amis</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Accueil</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{{ path('app_logout') }}">Se deconnecter</a>
-					</li>
-				</ul>
-			{% endif %}
+					
+						<li class="nav-item">
+							<a class="nav-link" href="#"><img src="{{asset("images/icons/envelope-fill.svg")}}" width="25" height="25" alt="Message">
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#"><img src="{{asset("images/icons/bell-fill.svg")}}" width="25" height="25" alt="Notifications">
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#"><img src="{{asset("images/icons/people-fill.svg")}}" width="25" height="25" alt="Amis">
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#"><img src="{{asset("images/icons/house-fill.svg")}}" width="25" height="25" alt="Acceuil">
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_logout') }}"><img src="{{asset("images/icons/door-open-fill.svg")}}" width="25" height="25" alt="Se déconnecter"></a>
+						</li>
+					
+				{% endif %}
+			</ul>
 		{% endif %}
 	</div>
 </nav>

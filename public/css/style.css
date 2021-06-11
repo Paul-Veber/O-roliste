@@ -138,10 +138,16 @@ input[type=date], input[type=datetime-local], input[type=email], input[type=numb
 }
 .navbar{
     padding: 0 1rem;
+     list-style: none;
+    flex-direction: row;
 }
 
 .navbar-nav .nav-link{
     padding: 0;
+   
+}
+.nav-item{
+
 }
 
 .navbar-light .navbar-nav .nav-link{
