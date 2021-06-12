@@ -48,17 +48,14 @@ label{
     color: #ddd;
 }
 form{
-    width: 50%;
-    margin: auto;
-  
-    
+   /* width: 50%;
+    margin: auto;*/
 }
-.card--form{
-    padding-top: 1rem;
-    background-color: #212529;
-    padding-bottom: 2rem;
-    width: 55%;
-    margin:auto;
+.navbar--lateral{
+    position: absolute;
+}
+.loginforms--link{
+    text-align:center;
 }
 .navbar-brand {
     margin-top: 1.5rem;

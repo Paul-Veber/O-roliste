@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container-fluid mt-1 mb-1">
 		{% if app.user is null %}
 			<ul class="navbar me-auto mb-2 mb-lg-0">
@@ -32,23 +32,23 @@
 					{% endif %}
 					
 						<li class="nav-item">
-							<a class="nav-link" href="#"><img src="{{asset("images/icons/envelope-fill.svg")}}" width="25" height="25" alt="Message">
+							<a class="nav-link" href="#"><img src="{{asset("images/icons/envelope.svg")}}" width="25" height="25" alt="Message">
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#"><img src="{{asset("images/icons/bell-fill.svg")}}" width="25" height="25" alt="Notifications">
+							<a class="nav-link" href="#"><img src="{{asset("images/icons/bell.svg")}}" width="25" height="25" alt="Notifications">
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#"><img src="{{asset("images/icons/people-fill.svg")}}" width="25" height="25" alt="Amis">
+							<a class="nav-link" href="#"><img src="{{asset("images/icons/people.svg")}}" width="25" height="25" alt="Amis">
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#"><img src="{{asset("images/icons/house-fill.svg")}}" width="25" height="25" alt="Acceuil">
+							<a class="nav-link" href="#"><img src="{{asset("images/icons/house.svg")}}" width="25" height="25" alt="Acceuil">
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="{{ path('app_logout') }}"><img src="{{asset("images/icons/door-open-fill.svg")}}" width="25" height="25" alt="Se déconnecter"></a>
+							<a class="nav-link" href="{{ path('app_logout') }}"><img src="{{asset("images/icons/door-open.svg")}}" width="25" height="25" alt="Se déconnecter"></a>
 						</li>
 					
 				{% endif %}
