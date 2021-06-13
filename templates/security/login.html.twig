@@ -4,7 +4,6 @@
 {% endblock %}
 
 {% block body %}
-<div class="col-md-6 position-relative top-0 start-50 translate-middle-x ">
 	<form class="form-center" method="post">
 		{% if error %}
 			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -54,6 +53,4 @@
 			<a href="{{path("user_signin")}}">Vous n'avez pas de compte ? Inscrivez-vous !</a>
 		</div>
 	</p>
-</div>
-
 {% endblock %}
