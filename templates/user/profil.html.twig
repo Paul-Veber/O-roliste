@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<h2>{{user.username}}</h2>
+
+	<div>
+		{% set images_directory = app.request.server.get('UPLOAD_IMAGES_DIRECTORY') %}
+		<img src="{{ asset(images_directory ~ '/' ~ user.avatar)}}" class="img-thumbnail" width="200" height="200" alt="{{app.user.username}}">
+	</div>
+
+	<div>
+		<p>{{user.email}}</p>
+		<p>{{user.description}}
+			{# <a href="#">afficher plus</a>#}
+		</p>
+	</div>
+
+	<a href="{{path("user_edit")}}">
+		<button class="btn btn-danger" type="button">
+			Changer ses informations
+		</button>
+	</a>
+{% endblock %}
