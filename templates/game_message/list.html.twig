@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GameMessage{% endblock %}
+
+{% block body %}
+    <h1>GameMessage</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ game_message.id }}</td>
+            </tr>
+            <tr>
+                <th>Body</th>
+                <td>{{ game_message.body }}</td>
+            </tr>
+         </tbody>
+    </table>
+
+ {% endblock %}

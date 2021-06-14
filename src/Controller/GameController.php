@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Game;
+use App\Entity\GameMessage;
+use App\Form\GameMessageType;
 use App\Form\GameType;
 use App\Repository\GameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

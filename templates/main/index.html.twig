@@ -25,6 +25,8 @@
 							</li>
 							<li>nombre de joueurs max .
 								{{ game.maxPlayer}}</li>
+								TEMPORAIRE
+								<a href="{{path('game_message_new', {'id': game.id}) }}">Envoyer un message</a>
 						</ul>
 
 					{% endfor %}
@@ -55,58 +57,4 @@
 		</div>
 	</div>
 
-
-
-<!--
-					<div class="card col">
-						<div class="card-body">
-				
-				
-							<form class="d-flex">
-								<input class="form-control me-2" type="search" placeholder="Recherche" aria-label="Search">
-								<button class="btn btn-outline-success" type="submit">Recherche</button>
-							</form>
-				
-							<h5>Categories</h5>
-				
-							<div class="dropdown">
-								<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-									Choisissez une catégorie
-								</button>
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-									<li>
-										<button class="dropdown-item" type="button">Action</button>
-									</li>
-									<li>
-										<button class="dropdown-item" type="button">Aventure</button>
-									</li>
-									<li>
-										<button class="dropdown-item" type="button">Horreur</button>
-									</li>
-								</ul>
-							</div>
-				
-							<h5>Tags Tendances</h5>
-				
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-									Zombies
-								</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-									Chevaliers
-								</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-									Dragons
-								</label>
-							</div>
-						</div>
-					</div>
-				-->
 {% endblock %}

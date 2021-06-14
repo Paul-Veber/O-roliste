@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -60,10 +62,16 @@ class User implements UserInterface//, PasswordAuthenticatedUserInterface
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=GameMessage::class, mappedBy="user")
+     */
+    private $gameMessages;
+
     public function __construct()
     {
         $this->setRoles(["ROLE_USER"]);
-        $this->createdAt=new \Datetime(); 
+        $this->createdAt=new \Datetime();
+        $this->gameMessages = new ArrayCollection(); 
     }
 
     public function getId(): ?int
@@ -204,6 +212,36 @@ class User implements UserInterface//, PasswordAuthenticatedUserInterface
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GameMessage[]
+     */
+    public function getGameMessages(): Collection
+    {
+        return $this->gameMessages;
+    }
+
+    public function addGameMessage(GameMessage $gameMessage): self
+    {
+        if (!$this->gameMessages->contains($gameMessage)) {
+            $this->gameMessages[] = $gameMessage;
+            $gameMessage->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGameMessage(GameMessage $gameMessage): self
+    {
+        if ($this->gameMessages->removeElement($gameMessage)) {
+            // set the owning side to null (unless already changed)
+            if ($gameMessage->getUser() === $this) {
+                $gameMessage->setUser(null);
+            }
+        }
 
         return $this;
     }

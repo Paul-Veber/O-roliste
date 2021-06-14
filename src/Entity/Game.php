@@ -89,10 +89,16 @@ class Game
      */
     private $tags;
 
+    /**
+     * @ORM\OneToMany(targetEntity=GameMessage::class, mappedBy="game")
+     */
+    private $gameMessages;
+
     public function __construct()
     {
         $this->createdAt=new \Datetime();
         $this->tags = new ArrayCollection();
+        $this->gameMessages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -276,6 +282,36 @@ class Game
     public function removeTag(Tag $tag): self
     {
         $this->tags->removeElement($tag);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GameMessage[]
+     */
+    public function getGameMessages(): Collection
+    {
+        return $this->gameMessages;
+    }
+
+    public function addGameMessage(GameMessage $gameMessage): self
+    {
+        if (!$this->gameMessages->contains($gameMessage)) {
+            $this->gameMessages[] = $gameMessage;
+            $gameMessage->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGameMessage(GameMessage $gameMessage): self
+    {
+        if ($this->gameMessages->removeElement($gameMessage)) {
+            // set the owning side to null (unless already changed)
+            if ($gameMessage->getGame() === $this) {
+                $gameMessage->setGame(null);
+            }
+        }
 
         return $this;
     }
