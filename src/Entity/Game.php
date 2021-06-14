@@ -79,9 +79,20 @@ class Game
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class)
+     */
+    private $category;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Tag::class)
+     */
+    private $tags;
+
     public function __construct()
     {
         $this->createdAt=new \Datetime();
+        $this->tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -229,6 +240,42 @@ class Game
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tag[]
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        $this->tags->removeElement($tag);
 
         return $this;
     }
