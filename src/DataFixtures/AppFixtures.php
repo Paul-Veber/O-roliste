@@ -2,9 +2,9 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
 use Nelmio\Alice\Loader\NativeLoader;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class AppFixtures extends Fixture
 {
@@ -19,8 +19,6 @@ class AppFixtures extends Fixture
         foreach ($entities as $entity) {
             $manager->persist($entity);
         };
-
-        //enregistre
         $manager->flush();
     }
 }
