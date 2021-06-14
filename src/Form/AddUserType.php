@@ -18,15 +18,19 @@ class AddUserType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
+                'label'=>"e-mail",
                 'constraints' => new NotBlank(),
             ])
             ->add('username', TextType::class,[
+                'label'=>"Pseudo",
                 'constraints' => new NotBlank(),
             ])
             ->add('password',PasswordType::class,[
+                'label'=>'Mot de passe',
                 'constraints'=>new NotBlank(),
             ])
             ->add('avatar',FileType::class, [
+                'label'=>'Avatar',
                 'required' => false,
                 'mapped' => false,
             ])

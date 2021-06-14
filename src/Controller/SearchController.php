@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-;
-
 use App\Entity\Game;
 use App\Form\SearchType;
 use App\Repository\CategoryRepository;

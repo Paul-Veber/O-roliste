@@ -6,22 +6,10 @@ Authore link : http://bootstrapthemes.co
 */
 html,
 body{
-<<<<<<< HEAD
     font-size:18px;
-    background:#fff; 
-    font-family: "Roboto";
-=======
-    font-size:16px;
     background:rgb(255, 255, 255); 
     font-family: 'Roboto', sans-serif;
->>>>>>> origin/navigation-search-menu
     font-weight: 300;
-
-    background: url("../images/background/background.jpg") no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
 }
 h1,
 h2,
@@ -49,15 +37,6 @@ h4 {
     font-size: 1.222rem;
     line-height: 2rem;
     font-weight: 700;
-}
-label{
-    color: #ddd;
-}
-.navbar--lateral{
-    position: absolute;
-}
-.loginforms--link{
-    text-align:center;
 }
 .navbar-brand {
     margin-top: 1.5rem;
@@ -161,7 +140,6 @@ input[type=date], input[type=datetime-local], input[type=email], input[type=numb
     padding: 0 1rem;
      list-style: none;
     flex-direction: row;
-    margin-bottom: 1rem;
 }
 
 .navbar-nav .nav-link{

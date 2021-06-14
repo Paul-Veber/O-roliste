@@ -27,7 +27,7 @@ class UserController extends AbstractController
     public function profil(): Response
     {
         $user = $this->getUser();
-        
+
         return $this->render('user/profil.html.twig', [
             'user' => $user,
         ]);
@@ -48,11 +48,13 @@ class UserController extends AbstractController
             // password encoding
             $user->setPassword($encoder->hashPassword($user, $user->getPassword()));
 
-            $newAvatarName = $imageUploader->upload($form, 'avatar');
-            $user->setAvatar($newAvatarName);
+            //upload avatar
+            $newAvatarPicture = $imageUploader->upload($form, 'avatar');
+            $user->setAvatar($newAvatarPicture);
+
             //add default avatar image if the field is empty
-            if($user->getAvatar() == null){
-               $user->setAvatar("default/avatar-default.jpg");
+            if ($user->getAvatar() == null) {
+                $user->setAvatar("default/avatar-default.svg");
             }
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -74,20 +76,22 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
 
-       // $this->denyAccessUnlessGranted('EDIT_PASSWORD', $user);
-
         $form = $this->createForm(EditUserType::class, $user);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {     
 
-            //upload avatar
-            $newAvatarName = $imageUploader->upload($form, 'avatar');
-            $user->setAvatar($newAvatarName);
+        //upload avatar
+
+        $newAvatarPicture = $imageUploader->upload($form, 'avatar');
+        if ($newAvatarPicture !== null) {
+            $user->setAvatar($newAvatarPicture);
+        }
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
 
             $user->setUpdatedAt(new \DateTime());
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
@@ -128,5 +132,4 @@ class UserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
 }
