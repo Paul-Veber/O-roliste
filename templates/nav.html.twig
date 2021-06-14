@@ -25,8 +25,8 @@
 					{% if app.user.avatar is not null %}
 						<li class="nav-item">
 							{% set images_directory = app.request.server.get('UPLOAD_IMAGES_DIRECTORY') %}
-							<a href="{{path("user_profil")}}">
-								<img src="{{ asset(images_directory ~ '/' ~ app.user.avatar)}}" class="rounded-circle" width="50" height="50" alt="{{app.user.username}}">
+							<a href="{{path("user_profil")}}" class="nav-link">
+								<img src="{{ asset(images_directory ~ '/' ~ app.user.avatar)}}" class="rounded-circle" width="30" height="30" alt="{{app.user.username}}">
 							</a>
 						</li>
 					{% endif %}

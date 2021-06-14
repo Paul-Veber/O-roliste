@@ -12,15 +12,13 @@ class AppFixtures extends Fixture
     {
         $loader = new NativeLoader();
 
-        //importe le fichier de fixtures et récupère les entités générés
+       //take fixtures
         $entities = $loader->loadFile(__DIR__.'/fixtures.yml')->getObjects();
-
-        //empile la liste d'objet à enregistrer en BDD
+        
         foreach ($entities as $entity) {
             $manager->persist($entity);
         };
-
-        //enregistre
+    
         $manager->flush();
     }
 }
