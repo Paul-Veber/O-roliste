@@ -6,15 +6,9 @@ Authore link : http://bootstrapthemes.co
 */
 html,
 body{
-<<<<<<< HEAD
-    font-size:18px;
-    background:#fff; 
-    font-family: "Roboto";
-=======
     font-size:16px;
     background:rgb(255, 255, 255); 
     font-family: 'Roboto', sans-serif;
->>>>>>> origin/navigation-search-menu
     font-weight: 300;
 
     background: url("../images/background/background.jpg") no-repeat center center fixed; 
