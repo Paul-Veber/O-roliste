@@ -2,12 +2,10 @@
 
 namespace App\Repository;
 
-use App\Entity\Tag;
 use App\Entity\Game;
-use Doctrine\ORM\Query;
 use App\Entity\Category;
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
@@ -23,8 +21,15 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
-
-    public function search(?string $searchTermn, $category = '', $tags = [''])
+/**
+ * search in data base for games with specific critera 
+ *
+ * @param string|null $searchTermn
+ * @param Category|null $category
+ * @param Collection|null $tags
+ * @return mixed[]
+ */
+    public function search(?string $searchTermn, ?Category $category, ?Collection $tags) : array
     {
         $query =  $this->createQueryBuilder('game');
 
@@ -36,7 +41,7 @@ class GameRepository extends ServiceEntityRepository
 
         if ($category) {
             $query->andWhere('game.category IN (:cat)')
-                ->setParameter('cat', $category);
+                  ->setParameter('cat', $category->getId());
             dump('category');
         }
         if ($tags) {
@@ -44,7 +49,7 @@ class GameRepository extends ServiceEntityRepository
 
             foreach ($tags as $tag) {
                 $query->andWhere('t.id IN (:tags)')
-                    ->setParameter('tags', $tag);
+                      ->setParameter('tags', $tag->getId());
             }
         }
         return $query->getQuery()

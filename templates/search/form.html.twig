@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<pre>
+		{{ dump(data) }}
+		{{ dump(result) }}
+	</pre>
+	{{form_start(form)}}
+	{{form_errors(form)}}
+	<button class="btn btn-primary">Ajouter</button>
+	{{form_end(form)}}
+{% endblock %}
