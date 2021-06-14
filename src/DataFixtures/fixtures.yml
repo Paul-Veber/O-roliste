@@ -4,14 +4,17 @@ App\Entity\User:
         roles: ["ROLE_USER"]
         password: '\$2y\$13\$3/BY8Q65V07U67eXT3e/ieCzeuLoNwqtYHem4xirVNn0iytJBLfeS'
         username: 'paul'
+        avatar: 'default/avatar-default.jpg'
     user_2:
         email: 'jeremy@mail'
         roles: ["ROLE_USER"]
         password: '\$2y\$13\$3/BY8Q65V07U67eXT3e/ieCzeuLoNwqtYHem4xirVNn0iytJBLfeS'
         username: 'jeremy'
+        avatar: 'default/avatar-default.jpg'
     user_3:
         email: 'eric@mail'
         roles: ["ROLE_USER"]
         password: '\$2y\$13\$3/BY8Q65V07U67eXT3e/ieCzeuLoNwqtYHem4xirVNn0iytJBLfeS'
         username: 'eric'
+        avatar: 'default/avatar-default.jp'
         
