@@ -4,8 +4,6 @@ namespace App\Form;
 
 use App\Entity\Game;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,16 +13,22 @@ class SearchType extends AbstractType
     {
         $builder
             ->add('name', null, [
-                'required' => false
+                'required' => false,
+                'attr' => ['class' => 'me-2']
             ])
             ->add('category', null, [
-                'expanded' => true,
-                'required' => false
+                'expanded' => false,
+                'required' => false,
+                'placeholder' => 'choisissez',
+                'attr' => ['class' => 'form-select']
             ])
             ->add('tags', null, [
                 'expanded' => true,
                 'multiple' => true, 
-                'required' => false
+                'required' => false,
+                'choice_attr' => function($choice, $key, $value) {
+                    return ['class' => 'form-check-input'];
+                },
             ])
         ;
     }
