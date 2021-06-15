@@ -23,7 +23,7 @@ class GameController extends AbstractController
     public function browse(GameRepository $gameRepository): Response
     {
         return $this->render('game/browse.html.twig', [
-            'game' => $gameRepository->findAll(),
+            'games' => $gameRepository->findAll(),
         ]);
     }
 

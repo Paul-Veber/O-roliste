@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}partie
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="card mb-3" style="max-width: 100%;">
+		<div class="row g-0">
+			<div class="col-md-2">
+
+				{% set images_directory = app.request.server.get('UPLOAD_IMAGES_DIRECTORY') %}
+				<img src="{{ asset(images_directory ~ '/' ~ game.creator.avatar)}}" class="rounded-circle" width="100%" height="100%" alt="{{game.creator.username}}">
+			</div>
+			<div class="col-md-8">
+				<div class="card-body">
+					<h5 class="card-title">{{ game.creator }}</h5>
+					<p class="card-text">
+						Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus quasi consequuntur dignissimos cumque, nemo, non, numquam dolore quibusdam obcaecati optio aliquid! Vero eos voluptate laborum dolorum impedit libero quisquam atque.</p>
+					<button class="btn btn-primary me-md-2 btn-sm" type="button">Message</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card mb-3" style="max-width: 100%;">
+		<div class="row g-0">
+			<div class="col-md-2">
+				<img src="{{ asset('images/upload/' ~ game.image) }}" width="10%" alt="...">
+			</div>
+			<div class="col-md-8">
+				<div class="card-body">
+					<h5 class="card-title">{{ game.name }}</h5>
+					<p class="card-text">
+						{{ game.description }}
+						Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi neque iure, id qui exercitationem voluptates cumque minus asperiores. Molestiae dignissimos vel minima. Dolor accusantium reprehenderit, ducimus repellat numquam libero quae.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row row-cols-1 row-cols-md-4 g-4">
+		<div class="col">
+			<div class="card h-100">
+				<div class="card-body">
+					<h6 class="card-title">Nombres de Joueurs maximum</h6>
+					<p class="card-text"><img src="{{asset("images/icons/people.svg")}}" width="25" height="25" alt="Amis">
+						{{ game.maxPlayer }}</p>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card h-100">
+				<div class="card-body">
+					<h6 class="card-title">Frequence des parties</h6>
+					<p class="card-text"><img src="{{asset("images/icons/alarm.svg")}}" width="25" height="25" alt="Alarme">
+						{{ game.frequency }}</p>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card h-100">
+				<div class="card-body">
+					<h6 class="card-title">Prochaine partie</h6>
+					<p class="card-text"><img src="{{asset("images/icons/calendar.svg")}}" width="25" height="25" alt="Calendar">{{ game.nextDate }}</p>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card h-100">
+				<div class="card-body">
+					<h6 class="card-title">Lien vers la partie</h6>
+					<p class="card-text"><img src="{{asset("images/icons/link-45deg.svg")}}" width="25" height="25" alt="link">{{ game.link }}</p>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card h-100">
+				<div class="card-body">
+					<h6 class="card-title">Catégorie de la partie</h6>
+					<p class="card-text"><img src="{{asset("images/icons/tags-fill.svg")}}" width="25" height="25" alt="category">{{ game.category }}</p>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card h-100">
+				<div class="card-body">
+					<h6 class="card-title">Tags de la partie</h6>
+					<p class="card-text"><img src="{{asset("images/icons/tags-fill.svg")}}" width="25" height="25" alt="tag">
+						{% for tag in game.tags %}
+							{{ tag }}
+						{% endfor %}
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card h-100">
+				<div class="card-body">
+					<h6 class="card-title">Adesse de la partie</h6>
+					<p class="card-text"><img src="{{asset("images/icons/cup-fill.svg")}}" width="25" height="25" alt="adresse">{{ game.address }}</p>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card h-100">
+				<div class="card-body">
+					<h6 class="card-title">Joueurs inscrits</h6>
+					<p class="card-text">Joueur 1
+						<a href="#" class="btn btn-primary">Ajouter</a>
+					</p>
+
+					<p class="card-text">Joueur 2
+						<a href="#" class="btn btn-primary">Ajouter</a>
+					</p>
+
+					<p class="card-text">Joueur 3
+						<a href="#" class="btn btn-primary">Ajouter</a>
+					</p>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+		<button class="btn btn-primary me-md-2 btn-lg" type="button">Rejoindre</button>
+	</div>{% endblock %}
