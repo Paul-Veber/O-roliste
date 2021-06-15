@@ -7,6 +7,9 @@
 
 	{% if is_granted('ROLE_USER') %}
 		<h2>Messages</h2>
+		<a href="{{path('game_message_new',{'id':idGame}) }}"><button class="btn btn-danger">Ajouter
+		</button></a>
+
 		{% set images_directory = app.request.server.get('UPLOAD_IMAGES_DIRECTORY') %}
 
 		{% for gameMessage in gameMessages %}
@@ -16,10 +19,11 @@
 					{{gameMessage.user.username}}
 
 					{% if is_granted('MESSAGE_EDIT', gameMessage) %}
-						<a href="{{ path('game_message_edit',{'id':gameMessage.game.id,'idMessage':gameMessage.id}) }}">
+						<a href="{{ path('game_message_edit',{'id':idGame,'idMessage':gameMessage.id}) }}">
 							<button class="btn btn-danger">Editer</button>
 						</a>
-						<form method="post" class="d-inline" action="{{ path('game_message_delete', {'id':gameMessage.game.id,'idMessage':gameMessage.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer ce message ?');">
+
+						<form method="post" class="d-inline" action="{{ path('game_message_delete', {'id':idGame,'idMessage':gameMessage.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer ce message ?');">
 							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ gameMessage.id) }}">
 							<button class="btn btn-danger">Supprimer</button>
 						</form>
@@ -27,7 +31,8 @@
 					{% endif %}
 				</div>
 				<div class="card-body">
-					{{ gameMessage.body }}
+					<p>{{ gameMessage.body }}</p>
+						<footer class="blockquote-footer">Posté le : {{gameMessage.createdAt|date('d/m/Y à h:i')}} {{ gameMessage.updatedAt is not null ? "modifié le : " ~ gameMessage.updatedAt|date('d/m/Y à h:i') }}</footer>
 				</div>
 			</div>
 		{% endfor %}

@@ -24,8 +24,10 @@ class GameMessageController extends AbstractController
     {
         //take all the message per id
           $gameMessages = $gameMessageRepository->findByGameId($game->getId());
+          $idGame=$game->getId();
 
         return $this->render('game_message/list.html.twig', [
+            'idGame'=> $idGame,
             'gameMessages' => $gameMessages,
         ]);
     }
@@ -51,7 +53,8 @@ class GameMessageController extends AbstractController
             $entityManager->persist($gameMessage);
             $entityManager->flush();
 
-            return $this->redirectToRoute('game_browse');
+            $id=$gameMessage->getGame()->getId();
+            return $this->redirectToRoute('game_message_list',['id'=>$id]);
         }
 
         return $this->render('game_message/new.html.twig', [
@@ -69,7 +72,9 @@ class GameMessageController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+
+            $gameMessage->setUpdatedAt(new \DateTime());
+            $this->getDoctrine()->getManager()->flush();            
             
             $id=$gameMessage->getGame()->getId();
             return $this->redirectToRoute('game_message_list',['id'=>$id]);
