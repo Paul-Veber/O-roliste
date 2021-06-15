@@ -4,26 +4,29 @@ namespace App\Controller;
 
 use App\Entity\Game;
 use App\Entity\GameMessage;
-use App\Entity\User;
 use App\Form\GameMessageType;
 use App\Repository\GameMessageRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/game/{id}/message", name="game_message_")
- */
+ * @Route("/game/{id}/message", name="game_message_", requirements={"id": "\d+"})
+ *  */
 class GameMessageController extends AbstractController
 {
     /**
      * @Route("", name="list")
      */
-    public function list(GameMessage $gameMessage): Response
+    public function list(GameMessageRepository $gameMessageRepository, Game $game): Response
     {
+        //take all the message per id
+          $gameMessages = $gameMessageRepository->findByGameId($game->getId());
+
         return $this->render('game_message/list.html.twig', [
-            'game_message' => $gameMessage,
+            'gameMessages' => $gameMessages,
         ]);
     }
 
@@ -57,32 +60,31 @@ class GameMessageController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="edit")
-     */
-
-     /*
+     * @Route("/edit/{idMessage}", name="edit", requirements={"idMessage": "\d+"})
+     * @ParamConverter("gameMessage", options={"id"="idMessage"})
+     */     
     public function edit(Request $request, GameMessage $gameMessage): Response
     {
         $form = $this->createForm(GameMessageType::class, $gameMessage);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('game_message_index');
+            
+            $id=$gameMessage->getGame()->getId();
+            return $this->redirectToRoute('game_message_list',['id'=>$id]);
         }
 
         return $this->render('game_message/edit.html.twig', [
-            'game_message' => $gameMessage,
+            'gameMessage' => $gameMessage,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="delete")
+     * @Route("/delete/{idMessage}", name="delete", requirements={"idMessage": "\d+"})
+     * @ParamConverter("gameMessage", options={"id"="idMessage"})
      */
-
-     /*
     public function delete(Request $request, GameMessage $gameMessage): Response
     {
         if ($this->isCsrfTokenValid('delete'.$gameMessage->getId(), $request->request->get('_token'))) {
@@ -90,7 +92,7 @@ class GameMessageController extends AbstractController
             $entityManager->remove($gameMessage);
             $entityManager->flush();
         }
-
-        return $this->redirectToRoute('game_message_index');
-    }*/
+        $id=$gameMessage->getGame()->getId();
+        return $this->redirectToRoute('game_message_list',['id'=>$id]);
+    }
 }

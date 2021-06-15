@@ -19,6 +19,16 @@ class GameMessageRepository extends ServiceEntityRepository
         parent::__construct($registry, GameMessage::class);
     }
 
+    public function findByGameId($id)
+    {
+        return $this->createQueryBuilder('q')
+            ->innerJoin('q.game', 't')
+            ->andWhere('t = :idgame')
+            ->setParameter('idgame', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return GameMessage[] Returns an array of GameMessage objects
     //  */

@@ -27,7 +27,6 @@ App\Entity\Game:
     open: true
     max_player : 4
 
-
 App\Entity\Category:
   category_{1..3}:
     name: "<username()>"
@@ -36,3 +35,13 @@ App\Entity\Tag:
   tag_{1..4}:
     name: "<username()>"
     games: ["@game*", "@game*"]
+
+App\Entity\GameMessage:
+  gamemessage_{1..100}:
+    body: "<words(10, true)>"
+    user: "@user*"
+    game: "@game*"   
+    createdAt: '<dateTimeBetween("-4 years", "now")>'
+
+
+

@@ -1,21 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}GameMessage{% endblock %}
+{% block title %}GameMessage
+{% endblock %}
 
 {% block body %}
-    <h1>GameMessage</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ game_message.id }}</td>
-            </tr>
-            <tr>
-                <th>Body</th>
-                <td>{{ game_message.body }}</td>
-            </tr>
-         </tbody>
-    </table>
+	{% if is_granted('ROLE_USER') %}
+		<h2>Messages</h2>
+		{% set images_directory = app.request.server.get('UPLOAD_IMAGES_DIRECTORY') %}
 
- {% endblock %}
+		{% for gameMessage in gameMessages %}
+			<div class="card mt-1">
+				<div class="card-header">
+					<img src="{{ asset(images_directory ~ '/' ~ gameMessage.user.avatar) }}" alt="Avatar de {{gameMessage.user.username}}">
+					{{gameMessage.user.username}}
+
+					{% if is_granted('MESSAGE_EDIT', gameMessage) %}
+						<a href="{{ path('game_message_edit',{'id':gameMessage.game.id,'idMessage':gameMessage.id}) }}">
+							<button class="btn btn-danger">Editer</button>
+						</a>
+						<form method="post" class="d-inline" action="{{ path('game_message_delete', {'id':gameMessage.game.id,'idMessage':gameMessage.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer ce message ?');">
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ gameMessage.id) }}">
+							<button class="btn btn-danger">Supprimer</button>
+						</form>
+
+					{% endif %}
+				</div>
+				<div class="card-body">
+					{{ gameMessage.body }}
+				</div>
+			</div>
+		{% endfor %}
+	{% endif %}
+
+{% endblock %}

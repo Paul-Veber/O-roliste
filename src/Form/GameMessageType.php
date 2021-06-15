@@ -16,6 +16,7 @@ class GameMessageType extends AbstractType
         $builder
             ->add('body',TextareaType::class,[
                 'constraints'=>new NotBlank(['message'=>'Veuillez completer ce champ']),
+                'label'=>"Message"
             ])
         ;
     }
