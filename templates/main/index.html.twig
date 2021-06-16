@@ -19,7 +19,7 @@
 						<li>{{ gameFive.name }}</li>
 						<li>{{ gameFive.description}}</li>
 						<li>
-							<a href="#">Afficher plus</a>
+							<a href="{{path('game_read',{'id': gameFive.id}) }}">Afficher plus</a>
 						</li>
 						<li>nombre de joueurs max .
 							{{ gameFive.maxPlayer}}</li>
