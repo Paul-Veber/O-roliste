@@ -34,13 +34,13 @@ App\Entity\Category:
 App\Entity\Tag:
   tag_{1..4}:
     name: "<username()>"
-    games: ["@game*", "@game*"]
+    games: ["@game_<numberBetween(1,4)>", "@game_<numberBetween(1,4)>"]
 
 App\Entity\GameMessage:
   gamemessage_{1..100}:
     body: "<words(10, true)>"
     user: "@user*"
-    game: "@game*"   
+    game: "@game_<numberBetween(1,4)>"   
     createdAt: '<dateTimeBetween("-4 years", "now")>'
 
 
