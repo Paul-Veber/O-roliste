@@ -7,7 +7,9 @@ use App\Entity\GameMessage;
 use App\Form\GameMessageType;
 use App\Form\GameType;
 use App\Repository\GameRepository;
+use App\Service\ImageUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,7 +25,7 @@ class GameController extends AbstractController
     public function browse(GameRepository $gameRepository): Response
     {
         return $this->render('game/browse.html.twig', [
-            'game' => $gameRepository->findAll(),
+            'games' => $gameRepository->findAll(),
         ]);
     }
 
@@ -40,7 +42,7 @@ class GameController extends AbstractController
     /**
      * @Route("/add", name="add")
      */
-    public function add(Request $request): Response
+    public function add(Request $request, ImageUploader $imageUploader): Response
     {
         $game = new Game();
 
@@ -51,6 +53,14 @@ class GameController extends AbstractController
         
         if($form->isSubmitted() && $form->isValid()) {
 
+            //upload avatar
+            $newAvatarPicture = $imageUploader->upload($form, 'avatar');
+            $game->setImage($newAvatarPicture);
+
+            //add default avatar image if the field is empty
+            if ($game->getImage() == null) {
+                $game->setImage("default/avatar-default.svg");
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($game);

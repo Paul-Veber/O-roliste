@@ -94,11 +94,22 @@ class Game
      */
     private $gameMessages;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="creator")
+     */
+    private $creator;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="guests")
+     */
+    private $guests;
+
     public function __construct()
     {
         $this->createdAt=new \Datetime();
         $this->tags = new ArrayCollection();
         $this->gameMessages = new ArrayCollection();
+        $this->guests = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -300,6 +311,34 @@ class Game
             $this->gameMessages[] = $gameMessage;
             $gameMessage->setGame($this);
         }
+        return $this;
+    }
+
+    public function getCreator(): ?User
+    {
+        return $this->creator;
+    }
+
+    public function setCreator(?User $creator): self
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getGuests(): Collection
+    {
+        return $this->guests;
+    }
+
+    public function addGuest(User $guest): self
+    {
+        if (!$this->guests->contains($guest)) {
+            $this->guests[] = $guest;
+        }
 
         return $this;
     }
@@ -312,6 +351,13 @@ class Game
                 $gameMessage->setGame(null);
             }
         }
+
+        return $this;
+    }
+
+    public function removeGuest(User $guest): self
+    {
+        $this->guests->removeElement($guest);
 
         return $this;
     }

@@ -5,54 +5,50 @@
 
 {% block body %}
 
-	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis error doloribus ab distinctio non sequi quia iste dolore officiis quae aperiam dolorum porro, velit molestias alias hic et cumque ut.</p>
+	<p class="fs-3 text-white bg-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis error doloribus ab distinctio non sequi quia iste dolore officiis quae aperiam dolorum porro, velit molestias alias hic et cumque ut.</p>
 
 
 	<!--<div class="row row-cols-1 row-cols-md-2">-->
 
-	<div class="card-group mb-5">
+	<div
+		class="card-group mb-5">
 		<!--<div class="col">-->
-			<div class="card h-100">
-				<div class="card-body">
+		<div class="card h-100">
+			<div class="card-body">
 
-					<h4>Dernières parties publiés</h4>
-					{% for game in games %}
-						<ul>
-							<li>{{ game.name }}</li>
-							<li>{{ game.description}}</li>
-							<li>
-								<a href="#">Afficher plus</a>
-							</li>
-							<li>nombre de joueurs max .
-								{{ game.maxPlayer}}</li>
-								TEMPORAIRE
-								<a href="{{path('game_message_new', {'id': game.id}) }}">Envoyer un message</a>
-						</ul>
+				<h4>Dernières parties publiés</h4>
 
-					{% endfor %}
-				</div>
+				{% for gameFive in gamesFive %}
+					<ul>
+						<li>{{ gameFive.name }}</li>
+						<li>{{ gameFive.description}}</li>
+						<li>
+							<a href="#">Afficher plus</a>
+						</li>
+						<li>nombre de joueurs max .
+							{{ gameFive.maxPlayer}}</li>
+					</ul>
 
-			</div>
+				{% endfor %}
+			</div}>
+
+		</div>
 
 		<div class="card h-100">
 			<div class="card-body">
 
 				<h4>Nouveaux joueurs disponibles</h4>
-				<ul>
-					<li>Nom du joueur</li>
-					<li><img src="#"></li>
-					<li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, ea.</li>
-					<li>
-						<a href="#">Afficher plus</a>
-					</li>
 
-					<li>Nom du joueur</li>
-					<li><img src="#"></li>
-					<li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium, quisquam.</li>
-					<li>
-						<a href="#">Afficher plus</a>
-					</li>
-				</ul>
+				{% for userFive in usersFive %}
+					<ul>
+						<li>{{ userFive.username}}</li>
+						<li><img  src="{{ asset('images/upload/' ~ userFive.avatar) }}" width="10%"></li>
+						<li>{{ userFive.description}}</li>
+						<li>
+							<a href="#">Afficher plus</a>
+						</li>
+					</ul>
+				{% endfor %}
 			</div>
 		</div>
 	</div>

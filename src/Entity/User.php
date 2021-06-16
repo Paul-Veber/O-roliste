@@ -67,11 +67,27 @@ class User implements UserInterface//, PasswordAuthenticatedUserInterface
      */
     private $gameMessages;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Game::class, mappedBy="creator")
+     */
+    private $creator;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Game::class, mappedBy="guests")
+     */
+    private $guests;
+
     public function __construct()
     {
         $this->setRoles(["ROLE_USER"]);
         $this->createdAt=new \Datetime();
         $this->gameMessages = new ArrayCollection(); 
+        $this->creator = new ArrayCollection();
+        $this->guests = new ArrayCollection(); 
+    }
+    public function __toString()
+    {
+        return $this->username;
     }
 
     public function getId(): ?int
@@ -230,6 +246,23 @@ class User implements UserInterface//, PasswordAuthenticatedUserInterface
             $this->gameMessages[] = $gameMessage;
             $gameMessage->setUser($this);
         }
+        return $this;
+    }
+    
+    /**
+     * @return Collection|Game[]
+     */
+    public function getCreator(): Collection
+    {
+        return $this->creator;
+    }
+
+    public function addCreator(Game $creator): self
+    {
+        if (!$this->creator->contains($creator)) {
+            $this->creator[] = $creator;
+            $creator->setCreator($this);
+        }
 
         return $this;
     }
@@ -241,6 +274,44 @@ class User implements UserInterface//, PasswordAuthenticatedUserInterface
             if ($gameMessage->getUser() === $this) {
                 $gameMessage->setUser(null);
             }
+        }
+        return $this;
+    }
+            
+    public function removeCreator(Game $creator): self
+    {
+        if ($this->creator->removeElement($creator)) {
+            // set the owning side to null (unless already changed)
+            if ($creator->getCreator() === $this) {
+                $creator->setCreator(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Game[]
+     */
+    public function getGuests(): Collection
+    {
+        return $this->guests;
+    }
+
+    public function addGuest(Game $guest): self
+    {
+        if (!$this->guests->contains($guest)) {
+            $this->guests[] = $guest;
+            $guest->addGuest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGuest(Game $guest): self
+    {
+        if ($this->guests->removeElement($guest)) {
+            $guest->removeGuest($this);
         }
 
         return $this;
