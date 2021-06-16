@@ -3,13 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Game;
-use App\Entity\GameMessage;
-use App\Form\GameMessageType;
 use App\Form\GameType;
+use App\Repository\GameMessageRepository;
 use App\Repository\GameRepository;
 use App\Service\ImageUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,9 +30,15 @@ class GameController extends AbstractController
     /**
      * @Route("/{id}", name="read", requirements={"id"="\d+"})
      */
-    public function read(Game $game): Response
+    public function read(GameMessageRepository $gameMessageRepository, Game $game): Response
     {
+        //take all the message per id
+        $gameMessages = $gameMessageRepository->findByGameId($game->getId());
+        $idGame=$game->getId();
+
         return $this->render('game/read.html.twig', [
+            'idGame'=> $idGame,
+            'gameMessages' => $gameMessages,
             'game' => $game,
         ]);
     }

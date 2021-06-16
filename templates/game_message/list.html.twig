@@ -1,16 +1,8 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}GameMessage
-{% endblock %}
-
-{% block body %}
 
 	{% if is_granted('ROLE_USER') %}
-		<h2>Messages</h2>
+		<h3>Commentaires</h3>
 		<a href="{{path('game_message_new',{'id':idGame}) }}"><button class="btn btn-danger">Ajouter
 		</button></a>
-
-		{% set images_directory = app.request.server.get('UPLOAD_IMAGES_DIRECTORY') %}
 
 		{% for gameMessage in gameMessages %}
 			<div class="card mt-1">
@@ -38,4 +30,3 @@
 		{% endfor %}
 	{% endif %}
 
-{% endblock %}

@@ -4,7 +4,6 @@
 	<h2>{{user.username}}</h2>
 
 	<div>
-		{% set images_directory = app.request.server.get('UPLOAD_IMAGES_DIRECTORY') %}
 		<img src="{{ asset(images_directory ~ '/' ~ user.avatar)}}" class="img-thumbnail" width="200" height="200" alt="{{app.user.username}}">
 	</div>
 
