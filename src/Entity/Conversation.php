@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ConversationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,7 +20,7 @@ class Conversation
     private $id;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $body;
 
@@ -31,6 +33,27 @@ class Conversation
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="conversations")
+     */
+    private $user_1;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     */
+    private $user_2;
+
+    /**
+     * @ORM\OneToMany(targetEntity=MessageUser::class, mappedBy="conversation")
+     */
+    private $messageUsers;
+
+    public function __construct()
+    {
+        $this->createdAt=new \Datetime();
+        $this->messageUsers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +92,60 @@ class Conversation
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getUser1(): ?User
+    {
+        return $this->user_1;
+    }
+
+    public function setUser1(?User $user_1): self
+    {
+        $this->user_1 = $user_1;
+
+        return $this;
+    }
+
+    public function getUser2(): ?User
+    {
+        return $this->user_2;
+    }
+
+    public function setUser2(?User $user_2): self
+    {
+        $this->user_2 = $user_2;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MessageUser[]
+     */
+    public function getMessageUsers(): Collection
+    {
+        return $this->messageUsers;
+    }
+
+    public function addMessageUser(MessageUser $messageUser): self
+    {
+        if (!$this->messageUsers->contains($messageUser)) {
+            $this->messageUsers[] = $messageUser;
+            $messageUser->setConversation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessageUser(MessageUser $messageUser): self
+    {
+        if ($this->messageUsers->removeElement($messageUser)) {
+            // set the owning side to null (unless already changed)
+            if ($messageUser->getConversation() === $this) {
+                $messageUser->setConversation(null);
+            }
+        }
 
         return $this;
     }

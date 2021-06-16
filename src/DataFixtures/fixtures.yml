@@ -34,14 +34,24 @@ App\Entity\Category:
 App\Entity\Tag:
   tag_{1..4}:
     name: "<username()>"
-    games: ["@game*", "@game*"]
+    games: ["@game_<numberBetween(1,5)>", "@game_<numberBetween(1,5)>"]
 
 App\Entity\GameMessage:
   gamemessage_{1..100}:
     body: "<words(10, true)>"
     user: "@user*"
-    game: "@game*"   
+    game: "@game_<numberBetween(1,5)>"   
     createdAt: '<dateTimeBetween("-4 years", "now")>'
+
+App\Entity\Conversation:
+  conversation_{1..5}:
+    user_1: "@user*"
+    user_2: "@user*"
+    messageUsers: ["@messageUser_<numberBetween(1,20)>", "@messageUser_<numberBetween(1,20)>", "@messageUser_<numberBetween(1,20)>"]
+
+App\Entity\MessageUser:
+  messageUser_{1..20}:
+    body: "<words(10, true)>"
 
 
 

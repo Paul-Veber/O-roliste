@@ -77,13 +77,19 @@ class User implements UserInterface//, PasswordAuthenticatedUserInterface
      */
     private $guests;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Conversation::class, mappedBy="user_1")
+     */
+    private $conversations;
+
     public function __construct()
     {
         $this->setRoles(["ROLE_USER"]);
         $this->createdAt=new \Datetime();
         $this->gameMessages = new ArrayCollection(); 
         $this->creator = new ArrayCollection();
-        $this->guests = new ArrayCollection(); 
+        $this->guests = new ArrayCollection();
+        $this->conversations = new ArrayCollection(); 
     }
     public function __toString()
     {
@@ -312,6 +318,36 @@ class User implements UserInterface//, PasswordAuthenticatedUserInterface
     {
         if ($this->guests->removeElement($guest)) {
             $guest->removeGuest($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Conversation[]
+     */
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    public function addConversation(Conversation $conversation): self
+    {
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations[] = $conversation;
+            $conversation->setUser1($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversation(Conversation $conversation): self
+    {
+        if ($this->conversations->removeElement($conversation)) {
+            // set the owning side to null (unless already changed)
+            if ($conversation->getUser1() === $this) {
+                $conversation->setUser1(null);
+            }
         }
 
         return $this;
