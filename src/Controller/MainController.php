@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MainController extends AbstractController
 {
     /**
-     * @Route("/main", name="main")
+     * @Route("/", name="main")
      */
     public function index(GameRepository $gameRepository, UserRepository $userRepository): Response
     {

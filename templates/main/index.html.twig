@@ -19,7 +19,7 @@
 						<li>{{ gameFive.name }}</li>
 						<li>{{ gameFive.description}}</li>
 						<li>
-							<a href="#">Afficher plus</a>
+							<a href="{{path("game_read", {id: gameFive.id})}}">Afficher plus</a>
 						</li>
 						<li>nombre de joueurs max .
 							{{ gameFive.maxPlayer}}</li>
@@ -41,7 +41,7 @@
 						<li><img  src="{{ asset('images/upload/' ~ userFive.avatar) }}" width="10%"></li>
 						<li>{{ userFive.description}}</li>
 						<li>
-							<a href="#">Afficher plus</a>
+							<a href="{{path("user_read", {id: userFive.id})}}">Afficher plus</a>
 						</li>
 					</ul>
 				{% endfor %}
