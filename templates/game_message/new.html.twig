@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New GameMessage
+{% endblock %}
+
+{% block body %}
+	{% if is_granted('ROLE_USER') %}
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		 <button class="btn btn-danger">Envoyer</button>
+		{{ form_end(form) }}
+	{% endif %}
+{% endblock %}
