@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<h2>{{user.username}}</h2>
+	<h1>{{user.username}}</h1>
 
 	<div>
 		<img src="{{ asset(images_directory ~ '/' ~ user.avatar)}}" class="img-thumbnail" width="200" height="200" alt="{{app.user.username}}">
@@ -10,7 +10,6 @@
 	<div>
 		<p>{{user.email}}</p>
 		<p>{{user.description}}
-			{# <a href="#">afficher plus</a>#}
 		</p>
 	</div>
 
