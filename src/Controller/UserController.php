@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\AddUserType;
 use App\Form\EditPasswordType;
 use App\Form\EditUserType;
+use App\Repository\UserRepository;
 use App\Service\ImageUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,6 +31,16 @@ class UserController extends AbstractController
 
         return $this->render('user/profil.html.twig', [
             'user' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("", name="browse", methods={"GET"})
+     */
+    public function browse(UserRepository $userRepository): Response
+    {
+        return $this->render('user/browse.html.twig', [
+            'users' => $userRepository->findAll(),
         ]);
     }
 

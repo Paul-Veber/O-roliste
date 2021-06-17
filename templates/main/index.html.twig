@@ -26,9 +26,15 @@
 					</ul>
 
 				{% endfor %}
+				<a href="{{path('game_browse') }}">
+					<div class="d-grid gap-2 col-6 mx-auto">
+						<button class="btn btn-primary" type="button">Voir toutes les parties</button>
+					</div>
+				</a>
 			</div>
 
 		</div>
+
 
 		<div class="card h-100">
 			<div class="card-body">
@@ -38,13 +44,19 @@
 				{% for userFive in usersFive %}
 					<ul>
 						<li>{{ userFive.username}}</li>
-						<li><img  src="{{ asset('images/upload/' ~ userFive.avatar) }}" width="10%"></li>
+						<li><img src="{{ asset('images/upload/' ~ userFive.avatar) }}" width="10%"></li>
 						<li>{{ userFive.description}}</li>
 						<li>
 							<a href="#">Afficher plus</a>
 						</li>
 					</ul>
 				{% endfor %}
+				<a href="{{path('user_browse') }}">
+				<div class="d-grid gap-2 col-6 mx-auto">
+
+					<button class="btn btn-primary" type="button">Voir toutes les joueurs</button>
+				</div>
+				</a>
 			</div>
 		</div>
 	</div>
