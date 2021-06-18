@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des joueurs
+{% endblock %}
+
+{% block body %}
+
+{% for user in users %}
+	<div class="card mb-3" style="max-width: 100%;">
+		<div class="row g-0">
+			<div class="col-md-2">
+				<img src="{{ asset(images_directory ~ '/' ~ user.avatar)}}" class="img-thumbnail" width="200" height="200" alt="{{app.user.username}}">
+			</div>
+			<div class="col-md-8">
+				<div class="card-body">
+					<h5 class="card-title">{{ user.username }}</h5>
+					<p class="card-text d-inline-block text-truncate" style="max-width: 100%;">{{ user.description }}</p>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>{% endfor %}{% endblock %}
