@@ -1,11 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<pre>
-		{{ dump(result) }}
-		<pre>
-			{{ dump(formData) }}
-		</pre>
-	</pre>
-	
+
+<h1>Resultats</h1>
+
+	{% for result in results %}
+
+		<div class="card-group mb-3">
+			<div class="card h-100 mx-1">
+				<div class="card-body">
+					<ul>
+						<li class="fw-bold text-capitalize">{{ result.name }}</li>
+						<li>{{ result.description}}</li>
+						<li>
+							<a href="{{path('game_read',{'id': result.id}) }}">Afficher plus</a>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+
+
+	{% endfor %}
 {% endblock %}

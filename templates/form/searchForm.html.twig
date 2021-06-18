@@ -1,7 +1,11 @@
 <div class="card card-body">
 	{{form_start(form, {'method': 'GET'})}}
-	{{form_errors(form)}}
-	<button class="btn btn-outline-success">Recherche</button>
+
+		{{form_row(form.name)}}
+
+		{{form_row(form.category)}}
+
+		{{form_row(form.tags)}}
 	{{form_end(form)}}
-	
+
 </div>
