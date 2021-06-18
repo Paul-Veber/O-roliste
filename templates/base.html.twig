@@ -8,7 +8,7 @@
 			{% endblock %}
 		</title>
 		{# Run `composer require symfony/webpack-encore-bundle`
-										                                                                                                                                                                                                           and uncomment the following Encore helpers to start using Symfony UX #}
+												                                                                                                                                                                                                           and uncomment the following Encore helpers to start using Symfony UX #}
 		{% block stylesheets %}
 			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 			<link rel="stylesheet" href="{{asset("css/styleadventure.css")}}">
@@ -19,28 +19,19 @@
 		{% endblock %}
 
 		{% set images_directory = app.request.server.get('UPLOAD_IMAGES_DIRECTORY') %}
-		{% block javascripts %}		
+		{% block javascripts %}
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 		{% endblock %}
 	</head>
 	<body>
 		{% include "nav.html.twig" %}
 		<div class="container-xxl">
-
-			{# display every flash message available #}
-			{% for label, messages in app.flashes %}
-				{% for message in messages %}
-					<div class="alert alert-{{ label }}">
-						{{ message }}
-					</div>
-				{% endfor %}
-			{% endfor %}
-
-
 			<div class="row mt-5">
-			
+
+		{% include "flash-message.html.twig" %}
+
 				<div class="col-xl-2">
-				{% include "nav-lateral.html.twig" %}
+					{% include "nav-lateral.html.twig" %}
 				</div>
 				<div class="col-xl-10 mb-5"> {% block body %}{% endblock %}
 					</div>
