@@ -11,8 +11,9 @@
 	<div class="card mb-3" style="max-width: 100%;">
 		<div class="row g-0">
 			<div class="col-md-2">
-			<div class="card-title"><h3>Maitre du jeu</h3>
-			</div>
+				<div class="card-title">
+					<h3>Maitre du jeu</h3>
+				</div>
 				<img src="{{ asset(images_directory ~ '/' ~ game.creator.avatar)}}" class="rounded-circle" width="50px" height="50px" alt="{{game.creator.username}}">
 			</div>
 			<div class="col-md-8">
@@ -30,7 +31,9 @@
 	<div class="card mb-3" style="max-width: 100%;">
 		<div class="row g-0">
 			<div class="col-md-2">
-			<div class="card-title"><h3>Detail du jeu</h3></div>
+				<div class="card-title">
+					<h3>Detail du jeu</h3>
+				</div>
 				<img src="{{ asset('images/upload/' ~ game.image) }}" width="50px" alt="Illustration de {{game.name}}">
 			</div>
 			<div class="col-md-8">
@@ -43,7 +46,9 @@
 		</div>
 	</div>
 
-	<div class="row row-cols-1 row-cols-md-4 g-4">
+
+	<div class="row row-cols-1 row-cols-md-4 g-4 d-none d-md-flex">
+
 		<div class="col">
 			<div class="card h-100">
 				<div class="card-body">
@@ -155,12 +160,158 @@
 
 				</div>
 			</div>
+
 		</div>
 	</div>
+
+
+	<div class="accordion d-md-none" id="accordionPanelsStayOpenExample">
+		<div class="accordion-item ">
+			<h2 class="accordion-header" id="panelsStayOpen-headingOne">
+				<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+					Nombres de Joueurs maximum
+				</button>
+			</h2>
+			<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+				<div class="accordion-body">
+					<p class="card-text"><img src="{{asset("images/icons/people.svg")}}" width="25" height="25" alt="Amis">
+						{{ game.maxPlayer }}</p>
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+					Frequence des parties
+				</button>
+			</h2>
+			<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+				<div class="accordion-body">
+					<p class="card-text"><img src="{{asset("images/icons/alarm.svg")}}" width="25" height="25" alt="Alarme">
+						{{ game.frequency }}</p>
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="panelsStayOpen-headingThree">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+					Prochaine partie
+				</button>
+			</h2>
+			<div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+				<div class="accordion-body">
+					<p class="card-text"><img src="{{asset("images/icons/calendar.svg")}}" width="25" height="25" alt="Calendar">{{ game.nextDate|date('d/m/Y') }}</p>
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="panelsStayOpen-headingFour">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
+					Lien vers la partie
+				</button>
+			</h2>
+			<div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
+				<div class="accordion-body">
+					{% if is_granted('ROLE_USER') %}
+						<p class="card-text"><img src="{{asset("images/icons/link-45deg.svg")}}" width="25" height="25" alt="link"><a href="#">{{ game.link }}</a>
+						</p>
+					{% else %}
+						Vous devez vous
+						<a href="{{path('app_login')}}">connecter</a>
+						ou
+						<a href="{{path("user_signin")}}">créer un compte</a>
+						pour afficher le contenu
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="panelsStayOpen-headingFive">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
+					Catégorie de la partie
+				</button>
+			</h2>
+			<div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
+				<div class="accordion-body">
+					<p class="card-text"><img src="{{asset("images/icons/tags-fill.svg")}}" width="25" height="25" alt="category">{{ game.category }}</p>
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="panelsStayOpen-headingSix">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseSix">
+					Tags de la partie
+				</button>
+			</h2>
+			<div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSix">
+				<div class="accordion-body">
+					{% for tag in game.tags %}
+						{{ tag }}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="panelsStayOpen-headingSeven">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSeven" aria-expanded="false" aria-controls="panelsStayOpen-collapseSeven">
+					Adresse de la partie
+				</button>
+			</h2>
+			<div id="panelsStayOpen-collapseSeven" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSeven">
+				<div class="accordion-body">
+					{% if is_granted('ROLE_USER') %}
+						<p class="card-text"><img src="{{asset("images/icons/cup-fill.svg")}}" width="25" height="25" alt="adresse">{{ game.address }}</p>
+					{% else %}
+						Vous devez vous
+						<a href="{{path('app_login')}}">connecter</a>
+						ou
+						<a href="{{path("user_signin")}}">créer un compte</a>
+						pour afficher le contenu
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="panelsStayOpen-headingEight">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseEight" aria-expanded="false" aria-controls="panelsStayOpen-collapseEight">
+					Joueurs inscrits
+				</button>
+			</h2>
+			<div id="panelsStayOpen-collapseEight" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingEight">
+				<div class="accordion-body">
+					<p class="card-text">Joueur 1
+						{% if is_granted('ROLE_USER') %}
+							<a href="#" class="btn btn-danger">Ajouter</a>
+						{% endif %}
+					</p>
+					<p class="card-text">Joueur 2
+						{% if is_granted('ROLE_USER') %}
+							<a href="#" class="btn btn-danger">Ajouter</a>
+						{% endif %}
+					</p>
+
+					<p class="card-text">Joueur 3
+						{% if is_granted('ROLE_USER') %}
+							<a href="#" class="btn btn-danger">Ajouter</a>
+						{% endif %}
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+		<div class="d-grid gap-2 d-md-flex justify-content-md-between">
+			<a class='d-grid' href="{{path('game_browse') }}">
+				<button class="btn btn-danger me-md-2 btn-lg" type="button">Retour à la liste des parties</button>
+			</a>
+			
 	{% if is_granted('ROLE_USER') %}
-		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 			<button class="btn btn-danger me-md-2 btn-lg" type="button">Rejoindre</button>
 		</div>
+
 	{% else %}
 		<div class="col mt-1">
 			<div class="card h-100">
@@ -178,4 +329,5 @@
 	{% endif %}
 
 	{% include "game_message/list.html.twig" %}
+
 {% endblock %}

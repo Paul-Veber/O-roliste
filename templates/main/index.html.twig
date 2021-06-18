@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!
+{% block title %}Accueil
 {% endblock %}
 
 {% block body %}
@@ -47,15 +47,15 @@
 						<li><img src="{{ asset('images/upload/' ~ userFive.avatar) }}" width="10%"></li>
 						<li>{{ userFive.description}}</li>
 						<li>
-							<a href="#">Afficher plus</a>
+							<a href="{{path('user_read',{'id': userFive.id}) }}">Afficher plus</a>
 						</li>
 					</ul>
 				{% endfor %}
 				<a href="{{path('user_browse') }}">
-				<div class="d-grid gap-2 col-6 mx-auto">
+					<div class="d-grid gap-2 col-6 mx-auto">
 
-					<button class="btn btn-primary" type="button">Voir toutes les joueurs</button>
-				</div>
+						<button class="btn btn-primary" type="button">Voir toutes les joueurs</button>
+					</div>
 				</a>
 			</div>
 		</div>

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello GameController!
+{% block title %}Liste des parties
 {% endblock %}
 
 {% block body %}
@@ -16,6 +16,12 @@
 					<h5 class="card-title">{{ game.name }}</h5>
 					<p class="card-text d-inline-block text-truncate" style="max-width: 100%;">{{ game.description }}</p>
 				</p>
+				<a href="{{path('game_read',{'id': game.id}) }}">
+					<div class="d-grid gap-2 col-6 mx-auto">
+
+						<button class="btn btn-primary" type="button">Voir le détail de la partie</button>
+					</div>
+				</a>
 			</div>
 		</div>
 	</div>

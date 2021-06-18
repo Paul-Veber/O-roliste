@@ -44,6 +44,17 @@ class UserController extends AbstractController
         ]);
     }
 
+        /**
+     * @Route("/{id}", name="read", requirements={"id"="\d+"})
+     */
+    public function read(User $user): Response
+    {
+
+        return $this->render('user/read.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
     /**
      * @Route("signin",name="signin")
      */
