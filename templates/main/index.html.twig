@@ -1,28 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!
+{% block title %}O'Rolliste
 {% endblock %}
 
 {% block body %}
 
-	<p class="fs-3 text-white bg-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis error doloribus ab distinctio non sequi quia iste dolore officiis quae aperiam dolorum porro, velit molestias alias hic et cumque ut.</p>
+	<h1>Bienvenue sur O'Rolliste</h1>
 
 	<div class="card-group mb-5">
 
-		<div class="card h-100">
+		<div class="card h-100 mx-1">
 			<div class="card-body">
 
 				<h4>Dernières parties publiés</h4>
 
 				{% for gameFive in gamesFive %}
 					<ul>
-						<li>{{ gameFive.name }}</li>
+						<li class="fw-bold text-capitalize">{{ gameFive.name }}</li>
 						<li>{{ gameFive.description}}</li>
+						<li>nombre de joueurs max .
+							{{ gameFive.maxPlayer}}</li>
 						<li>
 							<a href="{{path('game_read',{'id': gameFive.id}) }}">Afficher plus</a>
 						</li>
-						<li>nombre de joueurs max .
-							{{ gameFive.maxPlayer}}</li>
 					</ul>
 
 				{% endfor %}
@@ -30,15 +30,15 @@
 
 		</div>
 
-		<div class="card h-100">
+		<div class="card h-100 mx-1">
 			<div class="card-body">
 
 				<h4>Nouveaux joueurs disponibles</h4>
 
 				{% for userFive in usersFive %}
 					<ul>
-						<li>{{ userFive.username}}</li>
-						<li><img  src="{{ asset('images/upload/' ~ userFive.avatar) }}" width="10%"></li>
+						<li class="fw-bold text-capitalize">{{ userFive.username}}</li>
+						<li><img src="{{ asset('images/upload/' ~ userFive.avatar) }}" alt="avatar de {{userFive.username}}" width="10%"></li>
 						<li>{{ userFive.description}}</li>
 						<li>
 							<a href="#">Afficher plus</a>

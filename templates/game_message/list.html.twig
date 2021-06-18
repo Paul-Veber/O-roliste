@@ -1,8 +1,14 @@
+{% if is_granted('ROLE_USER') %}
 
-	{% if is_granted('ROLE_USER') %}
-		<h3>Commentaires</h3>
-		<a href="{{path('game_message_new',{'id':idGame}) }}"><button class="btn btn-danger">Ajouter
-		</button></a>
+	<button class="btn btn-danger" data-toggle="collapse" data-target="#globalMessages" aria-expanded="false" aria-controls="globalMessages">Affichez les commentaires
+	</button>
+
+	<div class="collapse" id="globalMessages">
+
+		<a href="{{path('game_message_new',{'id':idGame}) }}">
+			<button class="btn btn-danger m-1">Ajouter
+			</button>
+		</a>
 
 		{% for gameMessage in gameMessages %}
 			<div class="card mt-1">
@@ -24,9 +30,11 @@
 				</div>
 				<div class="card-body">
 					<p>{{ gameMessage.body }}</p>
-						<footer class="blockquote-footer">Posté le : {{gameMessage.createdAt|date('d/m/Y à h:i')}} {{ gameMessage.updatedAt is not null ? "modifié le : " ~ gameMessage.updatedAt|date('d/m/Y à h:i') }}</footer>
+					<footer class="blockquote-footer">Posté le :
+						{{gameMessage.createdAt|date('d/m/Y à h:i')}}
+						{{ gameMessage.updatedAt is not null ? "modifié le : " ~ gameMessage.updatedAt|date('d/m/Y à h:i') }}</footer>
 				</div>
 			</div>
 		{% endfor %}
-	{% endif %}
-
+	</div>
+{% endif %}

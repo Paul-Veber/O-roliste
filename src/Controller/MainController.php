@@ -9,11 +9,15 @@ use App\Repository\GameRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+* @Route("/", name="main_")
+*/
 class MainController extends AbstractController
 {
+
     /**
-     * @Route("/", name="main")
-     */
+     * @Route("", name="home")
+     */  
     public function index(GameRepository $gameRepository, UserRepository $userRepository): Response
     {
 
@@ -22,5 +26,29 @@ class MainController extends AbstractController
             'gamesFive' => $gameRepository->findBy([], [], 5),
             'usersFive' => $userRepository->findBy([], [], 5)
         ]);
+    }
+
+    /**
+     * @Route("whoarewe", name="whoarewe")
+     */
+    public function whoarewe()
+    {
+        return $this->render('main/whoarewe.html.twig');
+    }
+
+    /**
+     * @Route("contactus", name="contactus")
+     */
+    public function contactus()
+    {
+        return $this->render('main/contactus.html.twig');
+    }
+
+    /**
+     * @Route("legal", name="legal")
+     */
+    public function legal()
+    {
+        return $this->render('main/legal.html.twig');
     }
 }

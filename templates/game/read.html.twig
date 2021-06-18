@@ -13,7 +13,7 @@
 			<div class="col-md-2">
 			<div class="card-title"><h3>Maitre du jeu</h3>
 			</div>
-				<img src="{{ asset(images_directory ~ '/' ~ game.creator.avatar)}}" class="rounded-circle" width="50px" height="50px" alt="{{game.creator.username}}">
+				<img src="{{ asset(images_directory ~ '/' ~ game.creator.avatar)}}" class="rounded-circle img-thumbnail" width="150" alt="{{game.creator.username}}">
 			</div>
 			<div class="col-md-8">
 				<div class="card-body">
@@ -31,7 +31,7 @@
 		<div class="row g-0">
 			<div class="col-md-2">
 			<div class="card-title"><h3>Detail du jeu</h3></div>
-				<img src="{{ asset('images/upload/' ~ game.image) }}" width="50px" alt="Illustration de {{game.name}}">
+				<img src="{{ asset('images/upload/' ~ game.image) }}" class="rounded-circle img-thumbnail" width="150" alt="Illustration de {{game.name}}">
 			</div>
 			<div class="col-md-8">
 				<div class="card-body">
