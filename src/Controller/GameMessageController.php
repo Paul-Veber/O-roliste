@@ -37,6 +37,8 @@ class GameMessageController extends AbstractController
             $entityManager->persist($gameMessage);
             $entityManager->flush();
 
+            $this->addFlash('success', 'message envoyé.');
+
             $id=$gameMessage->getGame()->getId();
             return $this->redirectToRoute('game_read',['id'=>$id]);
         }
@@ -60,6 +62,8 @@ class GameMessageController extends AbstractController
             $gameMessage->setUpdatedAt(new \DateTime());
             $this->getDoctrine()->getManager()->flush();            
             
+            $this->addFlash('success', 'Message edité.');    
+
             $id=$gameMessage->getGame()->getId();
             return $this->redirectToRoute('game_read',['id'=>$id]);
         }
@@ -80,6 +84,8 @@ class GameMessageController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($gameMessage);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Message supprimé.');    
         }
         $id=$gameMessage->getGame()->getId();
         return $this->redirectToRoute('game_read',['id'=>$id]);
