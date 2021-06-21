@@ -12,7 +12,7 @@ class GameVoter extends Voter
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, ['ROLE_USER'])
+        return in_array($attribute, ['GAME_EDIT'])
             && $subject instanceof \App\Entity\Game;
     }
 
@@ -26,10 +26,10 @@ class GameVoter extends Voter
 
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
-            case 'ROLE_USER':
-                if (in_array('ROLE_USER', $user->getRoles())) {
+            case 'GAME_EDIT':
+                if ($subject->getCreator()->getId() == $user->getId()) {
                     return true;
-                    break;  
+                    break;
                 }
         }
 

@@ -21,16 +21,18 @@
 						<li>nombre de joueurs max .
 							{{ gameFive.maxPlayer}}</li>
 						<li>
-							<a href="{{path('game_read',{'id': gameFive.id}) }}">Afficher plus</a>
+							<a href="{{path('game_read',{'id': gameFive.id}) }}">
+								<button class="btn btn-danger" type="button">Afficher plus de détails</button>
+							</a>
 						</li>
 					</ul>
 
 				{% endfor %}
-				<a href="{{path('game_browse') }}">
-					<div class="d-grid gap-2 col-6 mx-auto">
-						<button class="btn btn-primary" type="button">Voir toutes les parties</button>
-					</div>
-				</a>
+				<div class="d-grid gap-2 col-6 mx-auto">
+					<a href="{{path('game_browse') }}">
+						<button class="btn btn-danger" type="button">Voir toutes les parties</button>
+					</a>
+				</div>
 			</div>
 
 		</div>
@@ -44,18 +46,20 @@
 					<ul>
 						<li class="fw-bold text-capitalize">{{ userFive.username}}</li>
 						<li><img src="{{ asset('images/upload/' ~ userFive.avatar) }}" alt="avatar de {{userFive.username}}" width="10%"></li>
-						<li>{{ userFive.description}}</li>
+						<li>{{ userFive.description}}
+						</li>
 						<li>
-							<a href="{{path('user_read',{'id': userFive.id}) }}">Afficher plus</a>
+							<a href="{{path('user_read',{'id': userFive.id}) }}">
+								<button class="btn btn-danger" type="button">Afficher plus de détails</button>
+							</a>
 						</li>
 					</ul>
 				{% endfor %}
-				<a href="{{path('user_browse') }}">
-					<div class="d-grid gap-2 col-6 mx-auto">
-
-						<button class="btn btn-primary" type="button">Voir toutes les joueurs</button>
-					</div>
-				</a>
+				<div class="d-grid gap-2 col-6 mx-auto">
+					<a href="{{path('user_browse') }}">
+						<button class="btn btn-danger" type="button">Voir toutes les joueurs</button>
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>

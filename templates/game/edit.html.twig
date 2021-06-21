@@ -2,15 +2,16 @@
 
 {% block body %}
 
-<h1>Ajouter une partie</h1>
+	{% if is_granted('ROLE_USER') %}
+	
+    	<h1>Modifier une partie</h1>
 
-{{ form_start(form) }}
-   {# {{ form_errors(form) }} #}
-    {{ form_widget(form) }}
-    <button class="btn btn-success">Ajouter</button>
-{{ form_end(form) }}
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		<button class="btn btn-success">Ajouter</button>
+		{{ form_end(form) }}
+
+	{% endif %}
+
 {% endblock %}
 
-{% block javascripts %}
-
-{% endblock %}

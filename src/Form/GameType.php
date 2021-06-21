@@ -6,6 +6,7 @@ use App\Entity\Game;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -28,6 +29,7 @@ class GameType extends AbstractType
             ->add('image',FileType::class, [
                 'label'=>'Image',
                 'required' => false,
+                'mapped'=>false,
             ])
             ->add('description', TextareaType::class,[
                 'label'=>"Description de la partie",
@@ -55,11 +57,11 @@ class GameType extends AbstractType
             ])
             ->add('frequency', TextType::class,[
                 'label'=>"Frequence des parties",
-                'required' => false,
             ])
-            ->add('nextDate', WeekType::class, [
+            ->add('nextDate', DateType::class, [
                 'label'=>"Date de la prochaine partie",
-                'placeholder' => 'Select a value',
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
                 'required' => false,
             ])
             ->add('active', CheckboxType::class,[
@@ -74,8 +76,7 @@ class GameType extends AbstractType
             ->add('maxPlayer', NumberType::class, [
                 'label' => 'Nombre de joueurs maximum',
             ])
-            //->add('createdAt')
-            //->add('updatedAt')
+
         ;
     }
 

@@ -6,13 +6,11 @@
 {% block body %}
 
 	{% if is_granted('ROLE_USER') %}
-		{% if is_granted('MESSAGE_EDIT', gameMessage) %}
 
 			{{ form_start(form) }}
 			{{ form_widget(form) }}
 			<button class="btn btn-danger">Envoyer</button>
 			{{ form_end(form) }}
 
-		{% endif %}
 	{% endif %}
 {% endblock %}

@@ -35,6 +35,7 @@ App\Entity\Game:
     next_date: '<dateTimeBetween("now", "+5 month")>'
     createdAt: '<dateTimeBetween("-4 month", "now")>'
     creator: "@user*"
+    image: "default/game-default.svg"
 
 App\Entity\Category:
   category_{1..3}:

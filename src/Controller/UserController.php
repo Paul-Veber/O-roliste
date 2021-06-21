@@ -74,7 +74,7 @@ class UserController extends AbstractController
             $user->setAvatar($newAvatarPicture);
 
             //add default avatar image if the field is empty
-            if ($user->getAvatar() == null) {
+            if ($user->getAvatar() === null) {
                 $user->setAvatar("default/avatar-default.svg");
             }
 
@@ -105,7 +105,6 @@ class UserController extends AbstractController
 
 
         //upload avatar
-
         $newAvatarPicture = $imageUploader->upload($form, 'avatar');
         if ($newAvatarPicture !== null) {
             $user->setAvatar($newAvatarPicture);

@@ -5,14 +5,27 @@
 
 {% block body %}
 
-	<h1>Information sur
-		{{game.name}}</h1>
+	<h1>{{game.name}}</h1>
+
+	{% if is_granted('GAME_EDIT',game) %}
+
+		<a href="{{ path('game_edit',{'id':game.id}) }}">
+			<button class="btn btn-danger">Editer</button>
+		</a>
+
+		<form method="post" class="d-inline" action="{{ path('game_delete', {'id':game.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer cette partie ?');">
+			<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ game.id) }}">
+			<button class="btn btn-danger">Supprimer</button>
+		</form>
+
+	{% endif %}
 
 	<div class="card mb-3" style="max-width: 100%;">
 		<div class="row g-0">
 			<div class="col-md-2">
-			<div class="card-title"><h3>Maitre du jeu</h3>
-			</div>
+				<div class="card-title">
+					<h3>Maitre du jeu</h3>
+				</div>
 				<img src="{{ asset(images_directory ~ '/' ~ game.creator.avatar)}}" class="rounded-circle img-thumbnail" width="150" alt="{{game.creator.username}}">
 			</div>
 			<div class="col-md-8">
@@ -30,7 +43,9 @@
 	<div class="card mb-3" style="max-width: 100%;">
 		<div class="row g-0">
 			<div class="col-md-2">
-			<div class="card-title"><h3>Detail du jeu</h3></div>
+				<div class="card-title">
+					<h3>Detail du jeu</h3>
+				</div>
 				<img src="{{ asset('images/upload/' ~ game.image) }}" class="rounded-circle img-thumbnail" width="150" alt="Illustration de {{game.name}}">
 			</div>
 			<div class="col-md-8">
@@ -297,14 +312,12 @@
 	</div>
 
 
+	<div class="d-grid gap-2 d-md-flex justify-content-md-between">
+		<a href="{{path('game_browse') }}">
+			<button class="btn btn-danger me-md-2 btn-lg" type="button">Retour à la liste des parties</button>
+		</a>
 
-
-		<div class="d-grid gap-2 d-md-flex justify-content-md-between">
-			<a class='d-grid' href="{{path('game_browse') }}">
-				<button class="btn btn-danger me-md-2 btn-lg" type="button">Retour à la liste des parties</button>
-			</a>
-			
-	{% if is_granted('ROLE_USER') %}
+		{% if is_granted('ROLE_USER') %}
 			<button class="btn btn-danger me-md-2 btn-lg" type="button">Rejoindre</button>
 		</div>
 

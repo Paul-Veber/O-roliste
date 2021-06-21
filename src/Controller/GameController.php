@@ -34,10 +34,10 @@ class GameController extends AbstractController
     {
         //take all the message per id
         $gameMessages = $gameMessageRepository->findByGameId($game->getId());
-        $idGame=$game->getId();
+        $idGame = $game->getId();
 
         return $this->render('game/read.html.twig', [
-            'idGame'=> $idGame,
+            'idGame' => $idGame,
             'gameMessages' => $gameMessages,
             'game' => $game,
         ]);
@@ -50,20 +50,23 @@ class GameController extends AbstractController
     {
         $game = new Game();
 
+        $this->denyAccessUnlessGranted('ROLE_USER', $game);
+
         $form = $this->createForm(GameType::class, $game);
-        
-        // handleRequest prend les données en POST et les place dans $form puis dans $game
+
         $form->handleRequest($request);
         
-        if($form->isSubmitted() && $form->isValid()) {
-
-            //upload avatar
-            $newAvatarPicture = $imageUploader->upload($form, 'avatar');
-            $game->setImage($newAvatarPicture);
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            //upload illustration image
+            $newIllustrationPicture = $imageUploader->upload($form, 'image');
+            if ($newIllustrationPicture !== null) {
+                $game->setImage($newIllustrationPicture);
+            }
 
             //add default avatar image if the field is empty
-            if ($game->getImage() == null) {
-                $game->setImage("default/avatar-default.svg");
+            if ($game->getImage() === null) {
+                $game->setImage("default/game-default.svg");
             }
 
             $em = $this->getDoctrine()->getManager();
@@ -81,17 +84,26 @@ class GameController extends AbstractController
     /**
      * @Route("/edit/{id}", name="edit", requirements={"id"="\d+"})
      */
-    public function edit(Game $game, Request $request): Response
+    public function edit(Game $game, Request $request, ImageUploader $imageUploader): Response
     {
 
+        $this->denyAccessUnlessGranted('GAME_EDIT', $game);
+
         $form = $this->createForm(GameType::class, $game);
+
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        //upload illustration image
+       $newIllustrationPicture = $imageUploader->upload($form, 'image');
+        if ($newIllustrationPicture !== null) {
+            $game->setImage($newIllustrationPicture);
+        }
+
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('game_browse');
+            return $this->redirectToRoute('game_read',['id'=>$game->getId()]);
         }
 
         return $this->render('game/edit.html.twig', [
@@ -104,7 +116,8 @@ class GameController extends AbstractController
      */
     public function delete(Game $game, Request $request)
     {
-        // Avant de supprimer $movie, on vérifie le token
+        $this->denyAccessUnlessGranted('GAME_EDIT', $game);
+
         $token = $request->request->get('_token');
         if ($this->isCsrfTokenValid('deleteGame', $token)) {
             $em = $this->getDoctrine()->getManager();
