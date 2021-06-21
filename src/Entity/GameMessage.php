@@ -24,6 +24,8 @@ class GameMessage
 
     /**
      * @ORM\Column(type="datetime")
+     * @ORM\OrderBy({"createdAt" = "ASC"})
+     *
      */
     private $createdAt;
 

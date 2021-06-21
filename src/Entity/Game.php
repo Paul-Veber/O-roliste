@@ -90,7 +90,7 @@ class Game
     private $tags;
 
     /**
-     * @ORM\OneToMany(targetEntity=GameMessage::class, mappedBy="game")
+     * @ORM\OneToMany(targetEntity=GameMessage::class, mappedBy="game", orphanRemoval=true)
      */
     private $gameMessages;
 

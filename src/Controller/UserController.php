@@ -26,28 +26,26 @@ class UserController extends AbstractController
     public function profil(): Response
     {
         $user = $this->getUser();
-
         return $this->render('user/profil.html.twig', [
             'user' => $user,
         ]);
     }
 
     /**
-     * @Route("", name="browse", methods={"GET"})
+     * @Route("", name="browse")
      */
     public function browse(UserRepository $userRepository): Response
-    {
+    {        
         return $this->render('user/browse.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
     }
 
-        /**
-     * @Route("/{id}", name="read", requirements={"id"="\d+"})
+    /**
+     * @Route("{id}", name="read", requirements={"id"="\d+"})
      */
     public function read(User $user): Response
     {
-
         return $this->render('user/read.html.twig', [
             'user' => $user,
         ]);
@@ -61,7 +59,6 @@ class UserController extends AbstractController
         $user = new User();
 
         $form = $this->createForm(AddUserType::class, $user);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -99,10 +96,10 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
 
-        $form = $this->createForm(EditUserType::class, $user);
+        $this->denyAccessUnlessGranted('USER_EDIT', $user);
 
+        $form = $this->createForm(EditUserType::class, $user); 
         $form->handleRequest($request);
-
 
         //upload avatar
         $newAvatarPicture = $imageUploader->upload($form, 'avatar');
@@ -111,7 +108,6 @@ class UserController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-
 
             $user->setUpdatedAt(new \DateTime());
             $entityManager = $this->getDoctrine()->getManager();

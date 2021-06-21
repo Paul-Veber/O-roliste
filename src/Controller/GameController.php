@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class GameController extends AbstractController
 {
     /**
-     * @Route("", name="browse", methods={"GET"})
+     * @Route("", name="browse")
      */
     public function browse(GameRepository $gameRepository): Response
     {
@@ -53,8 +53,10 @@ class GameController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_USER', $game);
 
         $form = $this->createForm(GameType::class, $game);
-
         $form->handleRequest($request);
+       
+        //set current user as a game creator
+        $game->setCreator($this->getUser());
         
         if ($form->isSubmitted() && $form->isValid()) {
             
@@ -112,22 +114,20 @@ class GameController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="delete", requirements={"id"="\d+"}, methods={"DELETE"})
+     * @Route("/delete/{id}", name="delete", requirements={"id"="\d+"})
      */
     public function delete(Game $game, Request $request)
     {
-        $this->denyAccessUnlessGranted('GAME_EDIT', $game);
+        $this->denyAccessUnlessGranted('MESSAGE_EDIT',$game);
 
-        $token = $request->request->get('_token');
-        if ($this->isCsrfTokenValid('deleteGame', $token)) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($game);
-            $em->flush();
+        if ($this->isCsrfTokenValid('delete'.$game->getId(), $request->request->get('_token'))) {
 
-            return $this->redirectToRoute('game_browse');
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($game);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Partie supprimée');
         }
-
-        // Si le token n'est pas valide, on lance une exception Access Denied
-        throw $this->createAccessDeniedException('Le token n\'est pas valide.');
+        return $this->redirectToRoute('game_browse');
     }
 }

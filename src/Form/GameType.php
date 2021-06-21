@@ -9,12 +9,15 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\WeekType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class GameType extends AbstractType
@@ -23,7 +26,7 @@ class GameType extends AbstractType
     {
         $builder
             ->add('name', TextType::class,[
-                'label'=>"Nom de la partie",
+                'label'=>"Nom de la partie *",
                 'constraints' => new NotBlank(),
             ])
             ->add('image',FileType::class, [
@@ -32,7 +35,7 @@ class GameType extends AbstractType
                 'mapped'=>false,
             ])
             ->add('description', TextareaType::class,[
-                'label'=>"Description de la partie",
+                'label'=>"Description de la partie *",
                 'constraints' => new NotBlank(),
                 'required' => false,
             ])
@@ -53,10 +56,15 @@ class GameType extends AbstractType
             ])
             ->add('link', TextType::class,[
                 'label'=>"Lien vers la platforme de jeu",
+                'help'=>'lien vers une plateforme ou un site externe, par exemple Roll20',
                 'required' => false,
             ])
             ->add('frequency', TextType::class,[
-                'label'=>"Frequence des parties",
+                'label'=>"Frequence des parties *",
+                'constraints'=>[
+                    new NotBlank(['message'=>'ne peut être vide']),
+                ],
+                'help'=>'Tous les mardis ou bien tous les premiers lundis du mois...',
             ])
             ->add('nextDate', DateType::class, [
                 'label'=>"Date de la prochaine partie",
@@ -73,8 +81,16 @@ class GameType extends AbstractType
                 'label' => 'Partie ouverte',
                 'required' => false,
             ])
-            ->add('maxPlayer', NumberType::class, [
-                'label' => 'Nombre de joueurs maximum',
+            ->add('maxPlayer', IntegerType::class, [
+                'constraints'=>[
+                    new NotBlank(['message'=>'ne peut être vide']),
+                ],
+                'label' => 'Nombre de joueurs maximum *',
+                'attr'=>['min'=>0]
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Créer',
+                'attr'=>['class'=>'btn btn-danger'],
             ])
 
         ;

@@ -15,19 +15,21 @@
 				<h4>Dernières parties publiés</h4>
 
 				{% for gameFive in gamesFive %}
-					<ul>
-						<li class="fw-bold text-capitalize">{{ gameFive.name }}</li>
-						<li>{{ gameFive.description}}</li>
-						<li>nombre de joueurs max .
-							{{ gameFive.maxPlayer}}</li>
-						<li>
+					<div class="mt-2">
+						<div class="fw-bold text-capitalize">{{ gameFive.name }}</div>
+
+						<img src="{{ asset(images_directory ~ '/' ~ gameFive.image) }}" class="rounded-circle img-thumbnail" width="100" alt="Illustration de {{gameFive.name}}">
+						<p class="card-text text-truncate">{{ gameFive.description}}</p>
+						<div>nombre de joueurs max .
+							{{ gameFive.maxPlayer}}</div>
+						<div>
 							<a href="{{path('game_read',{'id': gameFive.id}) }}">
 								<button class="btn btn-danger" type="button">Afficher plus de détails</button>
 							</a>
-						</li>
-					</ul>
-
+						</div>
+					</div>
 				{% endfor %}
+
 				<div class="d-grid gap-2 col-6 mx-auto">
 					<a href="{{path('game_browse') }}">
 						<button class="btn btn-danger" type="button">Voir toutes les parties</button>
@@ -43,17 +45,18 @@
 				<h4>Nouveaux joueurs disponibles</h4>
 
 				{% for userFive in usersFive %}
-					<ul>
-						<li class="fw-bold text-capitalize">{{ userFive.username}}</li>
-						<li><img src="{{ asset('images/upload/' ~ userFive.avatar) }}" alt="avatar de {{userFive.username}}" width="10%"></li>
-						<li>{{ userFive.description}}
-						</li>
-						<li>
+					<div class='mt-2'>
+						<div class="fw-bold text-capitalize">{{ userFive.username}}</div>
+						<div><img src="{{ asset(images_directory ~ '/' ~ userFive.avatar) }}" class="rounded-circle img-thumbnail" width="100" alt="avatar de {{userFive.username}}"></div>
+						<p class="card-text text-truncate">{{ userFive.description}}
+						</p>
+						<div>
 							<a href="{{path('user_read',{'id': userFive.id}) }}">
 								<button class="btn btn-danger" type="button">Afficher plus de détails</button>
 							</a>
-						</li>
-					</ul>
+						</div>
+					</div>
+					
 				{% endfor %}
 				<div class="d-grid gap-2 col-6 mx-auto">
 					<a href="{{path('user_browse') }}">

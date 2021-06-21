@@ -12,7 +12,7 @@ class UserVoter extends Voter
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, ['ROLE_USER'])
+        return in_array($attribute, ['ROLE_USER', 'USER_EDIT'])
             && $subject instanceof \App\Entity\User;
     }
 
@@ -28,6 +28,11 @@ class UserVoter extends Voter
         switch ($attribute) {
             case 'ROLE_USER':
                 if (in_array('ROLE_USER', $user->getRoles())) {
+                    return true;
+                    break;
+                }
+            case 'USER_EDIT':
+               if($subject->getId() === $user->getId()){
                     return true;
                     break;
                 }

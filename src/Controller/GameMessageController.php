@@ -22,6 +22,9 @@ class GameMessageController extends AbstractController
     public function new(Request $request,Game $game): Response
     {
         $gameMessage = new GameMessage();
+
+        $this->denyAccessUnlessGranted('ROLE_USER', $gameMessage);
+
         $form = $this->createForm(GameMessageType::class, $gameMessage);
         $form->handleRequest($request);
 
@@ -82,7 +85,6 @@ class GameMessageController extends AbstractController
     public function delete(Request $request, GameMessage $gameMessage): Response
     {
         $this->denyAccessUnlessGranted('MESSAGE_EDIT',$gameMessage);
-
 
         if ($this->isCsrfTokenValid('delete'.$gameMessage->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
