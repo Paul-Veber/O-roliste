@@ -33,6 +33,7 @@ h2 {
     font-size: 2rem;
     line-height: 2.5rem;
     font-weight: 700;
+    color: #fff;
 }
 h3 {
     font-size: 1.2rem;
@@ -45,7 +46,7 @@ h4 {
     font-weight: 700;
 }
 label{
-    color: #ddd;
+    color: rgb(20, 20, 20);
 }
 a{
     color: rgb(20, 20, 20);
@@ -53,4 +54,22 @@ a{
 }
 a:hover{
     color:#ec4848;
+}
+button{
+    margin: 3px;
+}
+.important__label{
+    color:#ec4848;
+}
+.card{
+    background-color: rgba(200, 200, 200, 0.7);
+}
+.help-text{
+    color: rgb(40, 40, 40);
+}
+.form-check-input{
+    color:#ec4848;
+}
+.blockquote-footer{
+    color: rgb(90, 90, 90);
 }

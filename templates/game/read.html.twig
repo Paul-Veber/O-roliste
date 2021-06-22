@@ -58,13 +58,12 @@
 		</div>
 	</div>
 
-
 	<div class="row row-cols-1 row-cols-md-4 g-4 d-none d-md-flex">
 
 		<div class="col">
 			<div class="card h-100">
 				<div class="card-body">
-					<h6 class="card-title">Nombres de Joueurs maximum</h6>
+					<h6 class="card-title">Nombres de joueurs maximum</h6>
 					<p class="card-text"><img src="{{asset("images/icons/people.svg")}}" width="25" height="25" alt="Amis">
 						{{ game.maxPlayer }}</p>
 				</div>
@@ -85,7 +84,7 @@
 			<div class="card h-100">
 				<div class="card-body">
 					<h6 class="card-title">Prochaine partie</h6>
-					<p class="card-text"><img src="{{asset("images/icons/calendar.svg")}}" width="25" height="25" alt="Calendar">{{ game.nextDate|date('d/m/Y') }}</p>
+					<p class="card-text"><img src="{{asset("images/icons/calendar.svg")}}" class="mx-1" width="25" height="25" alt="Calendar">{{ game.nextDate|date('d/m/Y') }}</p>
 				</div>
 			</div>
 		</div>
@@ -135,7 +134,7 @@
 				<div class="card-body">
 					<h6 class="card-title">Adresse de la partie</h6>
 					{% if is_granted('ROLE_USER') %}
-						<p class="card-text"><img src="{{asset("images/icons/cup-fill.svg")}}" width="25" height="25" alt="adresse">{{ game.address }}</p>
+						<p class="card-text"><img src="{{asset("images/icons/cup-fill.svg")}}" class="mx-1" width="25" height="25" alt="adresse">{{ game.address }}</p>
 					{% else %}
 						Vous devez vous
 						<a href="{{path('app_login')}}">connecter</a>
@@ -174,7 +173,6 @@
 
 		</div>
 	</div>
-
 
 	<div class="accordion d-md-none" id="accordionPanelsStayOpenExample">
 		<div class="accordion-item ">
