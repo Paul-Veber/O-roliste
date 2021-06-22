@@ -6,14 +6,14 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class GameVoter extends Voter
+class UserVoter extends Voter
 {
     protected function supports(string $attribute, $subject): bool
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, ['GAME_EDIT'])
-            && $subject instanceof \App\Entity\Game;
+        return in_array($attribute, ['ROLE_USER', 'USER_EDIT'])
+            && $subject instanceof \App\Entity\User;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
@@ -26,8 +26,13 @@ class GameVoter extends Voter
 
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
-            case 'GAME_EDIT':
-                if ($subject->getCreator()->getId() == $user->getId()) {
+            case 'ROLE_USER':
+                if (in_array('ROLE_USER', $user->getRoles())) {
+                    return true;
+                    break;
+                }
+            case 'USER_EDIT':
+               if($subject->getId() === $user->getId()){
                     return true;
                     break;
                 }

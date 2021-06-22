@@ -6,13 +6,15 @@
 {% block body %}
 
 	{% if is_granted('ROLE_USER') %}
-		{% if is_granted('MESSAGE_EDIT', gameMessage) %}
 
-			{{ form_start(form) }}
-			{{ form_widget(form) }}
-			<button class="btn btn-danger">Envoyer</button>
-			{{ form_end(form) }}
+		<div class="card mt-3 w-auto">
+			<div class="card-body">
+				<p>(*) champ obligatoire</p>
+				{{ form_start(form) }}
+				{{ form_widget(form) }}
+				{{ form_end(form) }}
+			</div>
+		</div>
 
-		{% endif %}
 	{% endif %}
 {% endblock %}

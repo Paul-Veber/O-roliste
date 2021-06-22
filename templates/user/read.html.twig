@@ -1,16 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<h2>{{user.username}}</h2>
 
-	<div>
-		<img src="{{ asset(images_directory ~ '/' ~ user.avatar)}}" class="img-thumbnail" width="200" height="200" alt="{{app.user.username}}">
+	<h1>{{user.username}}</h1>
+	<div class="card mb-3" style="max-width: 100%;">
+		<div class="row g-0">
+			<div class="col-md-2">
+
+				<img src="{{ asset(images_directory ~ '/' ~ user.avatar)}}" class="img-thumbnail" width="200" height="200" alt="{{user.username}}">
+			</div>
+			<div class="col-md-8">
+				<div class="card-body">
+					<p class="card-text">
+						{{user.description}}
+					</p>
+				</div>
+			</div>
+		</div>
 	</div>
-
-	<div>
-		<p>{{user.description}}
-			{# <a href="#">afficher plus</a>#}
-		</p>
-	</div>
-
 {% endblock %}

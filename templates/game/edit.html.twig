@@ -2,15 +2,21 @@
 
 {% block body %}
 
-<h1>Ajouter une partie</h1>
+	{% if is_granted('ROLE_USER') %}
 
-{{ form_start(form) }}
-   {# {{ form_errors(form) }} #}
-    {{ form_widget(form) }}
-    <button class="btn btn-success">Ajouter</button>
-{{ form_end(form) }}
-{% endblock %}
+		<h1>Modifier une partie</h1>
 
-{% block javascripts %}
+		<div class="card mt-3 w-auto">
+			<div class="card-body">
+
+				<p>(*) champs obligatoires</p>
+				{{ form_start(form) }}
+				{{ form_widget(form) }}
+				{{ form_end(form) }}
+
+			</div>
+		</div>
+
+	{% endif %}
 
 {% endblock %}

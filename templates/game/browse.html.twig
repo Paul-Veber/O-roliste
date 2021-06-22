@@ -5,23 +5,24 @@
 
 {% block body %}
 
-{% for game in games%}
+{% for game in games %}
+
 	<div class="card mb-3" style="max-width: 100%;">
 		<div class="row g-0">
 			<div class="col-md-2">
-				<img src="{{ asset('images/upload/' ~ game.image) }}" width="50px" height="50px" alt="Illustration de {{game.name}}">
+				<img src="{{ asset(images_directory ~ '/' ~ game.image) }}" class="rounded-circle img-thumbnail" width="150" alt="Illustration de {{game.name}}">
 			</div>
 			<div class="col-md-8">
 				<div class="card-body">
 					<h5 class="card-title">{{ game.name }}</h5>
 					<p class="card-text d-inline-block text-truncate" style="max-width: 100%;">{{ game.description }}</p>
 				</p>
-				<a href="{{path('game_read',{'id': game.id}) }}">
-					<div class="d-grid gap-2 col-6 mx-auto">
+				<div class="d-grid gap-2 col-6 mx-auto">
+					<a href="{{path('game_read',{'id': game.id}) }}">
 
-						<button class="btn btn-primary" type="button">Voir le détail de la partie</button>
-					</div>
-				</a>
+						<button class="btn btn-danger" type="button">Voir le détail de la partie</button>
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
