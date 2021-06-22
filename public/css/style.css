@@ -45,12 +45,15 @@ h4 {
     font-weight: 700;
 }
 label{
-    color: #ddd;
+    color: rgb(20, 20, 20);
 }
 a{
     color: rgb(20, 20, 20);
     
 }
 a:hover{
+    color:#ec4848;
+}
+.important__label{
     color:#ec4848;
 }

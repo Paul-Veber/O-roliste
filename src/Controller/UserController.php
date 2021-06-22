@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\AddUserType;
 use App\Form\EditPasswordType;
 use App\Form\EditUserType;
+use App\Repository\GameRepository;
 use App\Repository\UserRepository;
 use App\Service\ImageUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,10 +24,12 @@ class UserController extends AbstractController
     /**
      * @Route("profil", name="profil")
      */
-    public function profil(): Response
+    public function profil(GameRepository $gameRepository): Response
     {
-        $user = $this->getUser();
+        $user = $this->getUser();    
+        $game = $gameRepository->findByCreatorId($user->getId());
         return $this->render('user/profil.html.twig', [
+            'gamesCreate' => $game,
             'user' => $user,
         ]);
     }

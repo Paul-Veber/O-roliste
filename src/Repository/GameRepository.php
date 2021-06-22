@@ -56,6 +56,16 @@ class GameRepository extends ServiceEntityRepository
             ->getArrayResult();
     }
 
+    public function findByCreatorId($id)
+    {
+        return $this->createQueryBuilder('game')
+        ->innerJoin('game.creator', 'c')
+        ->andWhere('c = :id')
+        ->setParameter('id',$id)
+        ->getQuery()
+        ->getResult()
+        ;
+    }
 
     // /**
     //  * @return Game[] Returns an array of Game objects
