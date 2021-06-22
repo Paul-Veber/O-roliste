@@ -12,7 +12,7 @@ class GameMessageVoter extends Voter
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, ['MESSAGE_EDIT', 'MESSAGE_DELETE'])
+        return in_array($attribute, ['MESSAGE_EDIT'])
             && $subject instanceof \App\Entity\GameMessage;
     }
 
