@@ -39,7 +39,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function findByUserId($id) 
     {
         return $this->createQueryBuilder('f')
-            ->innerJoin('f.myFriends', 'm')
+            ->innerJoin('f.friendsWithMe', 'm')
             ->andWhere('m = :id')
             ->setParameter('id', $id)
             ->getQuery()

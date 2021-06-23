@@ -104,7 +104,7 @@ class GameController extends AbstractController
      */
     public function delete(Game $game, Request $request)
     {
-        // Avant de supprimer $movie, on vérifie le token
+        // Avant de supprimer $game, on vérifie le token
         $token = $request->request->get('_token');
         if ($this->isCsrfTokenValid('deleteGame', $token)) {
             $em = $this->getDoctrine()->getManager();

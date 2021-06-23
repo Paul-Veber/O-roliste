@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FriendController!
+{% endblock %}
+
+{% block body %}
+
+	<div class="card mb-3" style="max-width: 100%;">
+		<div class="row g-0">
+			<div class="col-md-2">
+				<div class="card-title">
+					<h3>Profil</h3>
+				</div>
+				<img src="{{ asset(images_directory ~ '/' ~ user.avatar)}}" class="rounded-circle img-thumbnail" width="150" alt="{{user.username}}">
+			</div>
+			<div class="col-md-8">
+				<div class="card-body">
+					<h5 class="card-title">{{ user.username }}</h5>
+					<p class="card-text">
+						{{ user.description}}
+					</p>
+					<button class="btn btn-danger me-md-2 btn-sm" type="button">Message</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<h2>Mes amis</h2>
+
+	{% for friend in friends %}
+		<div class="card mt-1">
+			<div class="card-header">
+				{{friend.username}}
+				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+					{% if is_granted('FRIEND_DELETE', friend) %}
+						<form action="{{ path('friend_delete', {id: friend.id}) }}" method="post" class="d-inline">
+
+							<button class="btn btn-danger">Supprimer</button>
+
+							<input type="hidden" name="_method" value="delete">
+							<input type="hidden" name="_token" value="{{ csrf_token('deleteFriend') }}">
+						</form>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+
+
+<pre>
+    {{ dump(idUser) }}
+    <pre>
+        {{ dump(friends) }}
+    </pre></pre>{% endblock %}
