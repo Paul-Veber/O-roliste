@@ -23,8 +23,8 @@ class MainController extends AbstractController
 
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
-            'gamesFive' => $gameRepository->findBy([], [], 5),
-            'usersFive' => $userRepository->findBy([], [], 5)
+            'gamesFive' => $gameRepository->findBy([], ["createdAt"=>"DESC"], 5),
+            'usersFive' => $userRepository->findBy([], ["createdAt"=>"DESC"], 5)
         ]);
     }
 

@@ -71,7 +71,7 @@ class Game
 
     /**
      * @ORM\Column(type="datetime")
-     */
+    */
     private $createdAt;
 
     /**

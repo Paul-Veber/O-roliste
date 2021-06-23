@@ -9,8 +9,8 @@
 
 	{% if is_granted('GAME_EDIT',game) %}
 
-		<a href="{{ path('game_edit',{'id':game.id}) }}">
-			<button class="btn btn-danger">Editer</button>
+		<a href="{{ path('game_edit',{'id':game.id}) }}" class="btn btn-danger">
+			Editer
 		</a>
 
 		<form method="post" class="d-inline" action="{{ path('game_delete', {'id':game.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer cette partie ?');">
@@ -46,13 +46,16 @@
 				<div class="card-title">
 					<h3>Detail du jeu</h3>
 				</div>
-				<img src="{{ asset('images/upload/' ~ game.image) }}" class="rounded-circle img-thumbnail" width="150" alt="Illustration de {{game.name}}">
+				<img src="{{ asset(images_directory ~ '/' ~ game.image) }}" class="rounded-circle img-thumbnail" width="150" alt="Illustration de {{game.name}}">
 			</div>
 			<div class="col-md-8">
 				<div class="card-body">
 					<h5 class="card-title">{{ game.name }}</h5>
 					<p class="card-text">{{ game.description }}
 					</p>
+					<footer class="blockquote-footer">Crée le :
+						{{game.createdAt|date('d/m/Y à h:i')}}
+						{{ game.updatedAt is not null ? "modifié le : " ~ game.updatedAt|date('d/m/Y à h:i') }}</footer>
 				</div>
 			</div>
 		</div>
@@ -177,7 +180,7 @@
 	<div class="accordion d-md-none" id="accordionPanelsStayOpenExample">
 		<div class="accordion-item ">
 			<h2 class="accordion-header" id="panelsStayOpen-headingOne">
-				<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+				<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
 					Nombres de Joueurs maximum
 				</button>
 			</h2>

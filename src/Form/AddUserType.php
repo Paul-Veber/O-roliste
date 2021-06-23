@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class AddUserType extends AbstractType
@@ -27,8 +28,11 @@ class AddUserType extends AbstractType
                 'constraints' => new NotBlank(),
             ])
             ->add('password',PasswordType::class,[
-                'label'=>'Mot de passe *',
-                'constraints'=>new NotBlank(),
+                'label'=>'Mot de passe, minimum 8 caractères. *',
+                'constraints'=>[
+                    new NotBlank(),
+                    new Length(['min'=>8]),
+                ]
             ])
             ->add('avatar',FileType::class, [
                 'label'=>'Avatar',
