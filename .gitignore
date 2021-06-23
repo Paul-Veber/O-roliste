@@ -7,7 +7,6 @@
 /public/bundles/
 /var/
 /vendor/
-/public/sass/*
 /public/images/upload/*
 !/public/images/upload/default
 ###< symfony/framework-bundle ###
