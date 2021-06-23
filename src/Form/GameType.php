@@ -30,7 +30,7 @@ class GameType extends AbstractType
                 'constraints' => new NotBlank(),
             ])
             ->add('image',FileType::class, [
-                'label'=>'Image',
+                'label'=>'Image (taille maximum 2Mo)',
                 'required' => false,
                 'mapped'=>false,
             ])

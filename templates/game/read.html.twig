@@ -9,8 +9,8 @@
 
 	{% if is_granted('GAME_EDIT',game) %}
 
-		<a href="{{ path('game_edit',{'id':game.id}) }}">
-			<button class="btn btn-danger">Editer</button>
+		<a href="{{ path('game_edit',{'id':game.id}) }}" class="btn btn-danger">
+			Editer
 		</a>
 
 		<form method="post" class="d-inline" action="{{ path('game_delete', {'id':game.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer cette partie ?');">
