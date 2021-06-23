@@ -48,9 +48,11 @@ class UserController extends AbstractController
     /**
      * @Route("{id}", name="read", requirements={"id"="\d+"})
      */
-    public function read(User $user): Response
+    public function read(User $user, GameRepository $gameRepository): Response
     {
+        $game = $gameRepository->findByCreatorId($user->getId());
         return $this->render('user/read.html.twig', [
+            'gamesCreate' => $game,
             'user' => $user,
         ]);
     }
