@@ -75,7 +75,7 @@ class GameController extends AbstractController
             $em->persist($game);
             $em->flush();
 
-            return $this->redirectToRoute('game_browse');
+            return $this->redirectToRoute('game_read',['id'=>$game->getId()]);
         }
 
         return $this->render('game/add.html.twig', [
@@ -92,7 +92,6 @@ class GameController extends AbstractController
         $this->denyAccessUnlessGranted('GAME_EDIT', $game);
 
         $form = $this->createForm(GameType::class, $game);
-
         $form->handleRequest($request);
 
         //upload illustration image
@@ -103,8 +102,8 @@ class GameController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $game->setUpdatedAt(new \DateTime());
             $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('game_read',['id'=>$game->getId()]);
         }
 

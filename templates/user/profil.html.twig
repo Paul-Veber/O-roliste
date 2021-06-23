@@ -28,6 +28,8 @@
 		</a>
 	</div>
 
+{#check if gamesCreate is empty #}
+{% if gamesCreate %}
 	<h2>Parties créer</h2>
 
 	{% for gameCreate in gamesCreate %}
@@ -58,4 +60,5 @@
 			</div>
 		</div>
 	{% endfor %}
+{% endif %}
 {% endblock %}

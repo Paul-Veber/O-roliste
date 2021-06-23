@@ -26,7 +26,8 @@ class UserController extends AbstractController
      */
     public function profil(GameRepository $gameRepository): Response
     {
-        $user = $this->getUser();    
+        $user = $this->getUser();
+
         $game = $gameRepository->findByCreatorId($user->getId());
         return $this->render('user/profil.html.twig', [
             'gamesCreate' => $game,
@@ -38,7 +39,7 @@ class UserController extends AbstractController
      * @Route("", name="browse")
      */
     public function browse(UserRepository $userRepository): Response
-    {        
+    {
         return $this->render('user/browse.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
@@ -84,7 +85,7 @@ class UserController extends AbstractController
 
             $this->addFlash('success', 'Bienvenue ! Veuillez vous connecter');
 
-            return $this->redirectToRoute('user_profil');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('user/signin.html.twig', [
@@ -101,7 +102,7 @@ class UserController extends AbstractController
 
         $this->denyAccessUnlessGranted('USER_EDIT', $user);
 
-        $form = $this->createForm(EditUserType::class, $user); 
+        $form = $this->createForm(EditUserType::class, $user);
         $form->handleRequest($request);
 
         //upload avatar
