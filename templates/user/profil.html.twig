@@ -2,22 +2,15 @@
 
 {% block body %}
 
-	<div class="card mb-3" style="max-width: 100%;">
-		<div class="row g-0">
-			<div class="col-md-3">
-				{% set images_directory = app.request.server.get('UPLOAD_IMAGES_DIRECTORY') %}
-				<img src="{{ asset(images_directory ~ '/' ~ user.avatar)}}" class="img-thumbnail" width="200" height="200" alt="{{app.user.username}}">
-			</div>
-			<div class="col-md-8">
-				<div class="card-body">
-					<h5 class="card-title">{{user.username}}</h5>
-					<p class="card-text">{{user.description}}Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam voluptas odit, quam itaque sunt similique consequatur. Exercitationem aspernatur ipsa quas non ullam, voluptates itaque animi, est provident esse eum id!</p>
-					<p class="card-text">
-						<small class="text-muted">{{user.email}}</small>
-					</p>
-				</div>
-			</div>
-		</div>
+	<div>
+		<img src="{{ asset(images_directory ~ '/' ~ user.avatar)}}" class="img-thumbnail" width="200" height="200" alt="{{app.user.username}}">
+	</div>
+
+	<div>
+		<p>{{user.email}}</p>
+		<p>{{user.description}}
+			{# <a href="#">afficher plus</a>#}
+		</p>
 	</div>
 
 	<a href="{{path("user_edit")}}">

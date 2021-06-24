@@ -3,34 +3,69 @@
 namespace App\Controller;
 
 use App\Entity\Game;
+use App\Entity\User;
+use App\Form\SeachUserType;
+use Doctrine\ORM\Query;
 use App\Form\SearchType;
-use App\Repository\CategoryRepository;
 use App\Repository\GameRepository;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @Route("/search", name="search_")
+ */
 class SearchController extends AbstractController
 {
-    /**
-     * @Route("/search", name="search")
-     */
-    public function searchForm(Request $request, GameRepository $gameRepository)
+    public function searchBar()
     {
-        $result = [];
         $searchResult = new Game();
-        $form = $this->createForm(SearchType::class, $searchResult);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $result = $gameRepository->search($searchResult->getName(), $searchResult->getCategory(), $searchResult->getTags());
-        }
-
-        return $this->render('search/form.html.twig', [
+        $form = $this->createForm(SearchType::class, $searchResult, [
+            'csrf_protection' => false,
+            'action' => $this->generateUrl('search_handle')
+        ]);
+        return $this->render('form/searchForm.html.twig', [
             'form' => $form->createView(),
-            'data' => $searchResult,
-            'result' => $result
         ]);
     }
+    /**
+     * @Route("", name="handle" )
+     *
+     * @param Request $request
+     */
+    public function search(Request $request, GameRepository $gameRepository)
+    {
+        $formData = $request->query->get('search');
+        $tags = $formData['tags'] ?? null;
+        
+        $category = !$formData['category'] ? null :  intval($formData['category']);
+        $searchResult = $gameRepository->search($formData['name'], $category, $tags);
+        return $this->render('search/form.html.twig', [
+            'formData' => $formData,
+            'result' => $searchResult
+        ]);
+    }
+
+    public function searchUserForm()
+    {
+        $userSearch = new User();
+
+        $form = $this->createForm(SeachUserType::class, $userSearch, [
+            'csrf_protection' => false,
+            'action' => $this->generateUrl('search')
+        ]);
+        return $this->render('form/searchForm.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/user", name="user_conversation") 
+     */
+    public function searchUserConv(Request $request)
+    {
+        $formData = $request->query->get('searchUserForm');
+    }
+
+    
 }

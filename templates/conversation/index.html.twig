@@ -1,22 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ConversationController!{% endblock %}
+{% block title %}Hello ConversationController!
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-<pre>
-    {{ dump(conversations) }}
-</pre>
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/srv/http/projet-oroliste/src/Controller/ConversationController.php'|file_link(0) }}">src/Controller/ConversationController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/srv/http/projet-oroliste/templates/conversation/index.html.twig'|file_link(0) }}">templates/conversation/index.html.twig</a></code></li>
-    </ul>
-</div>
+{% for conversation in conversations %}
+
+	<div class="card mb-3" style="max-width: 100%;">
+		<div class="row g-0">
+			<div class="col-md-8">
+				<div class="card-body">
+					<h5 class="card-title">{{ conversation.user1.username }} {{ conversation.user2.username }}</h5>
+				</p>
+				<footer class="blockquote-footer">Crée le :
+					{{conversation.createdAt|date('d/m/Y à h:i')}}
+					{{ conversation.updatedAt is not null ? "modifié le : " ~ conversation.updatedAt|date('d/m/Y à h:i') }}</footer>
+				<div class="d-grid gap-2 col-6 mx-auto">
+					<a href="{{path('conversation_read',{'id': conversation.id}) }}">
+						<button class="btn btn-danger" type="button">commencer à discuter !</button>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>{% endfor %}
 {% endblock %}

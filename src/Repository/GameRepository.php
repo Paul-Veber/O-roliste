@@ -29,7 +29,7 @@ class GameRepository extends ServiceEntityRepository
  * @param Collection|null $tags
  * @return mixed[]
  */
-    public function search(?string $searchTermn, ?Category $category, ?Collection $tags) : array
+    public function search(?string $searchTermn, ?int $category, ?array $tags) : array
     {
         $query =  $this->createQueryBuilder('game');
 
@@ -41,7 +41,7 @@ class GameRepository extends ServiceEntityRepository
 
         if ($category) {
             $query->andWhere('game.category IN (:cat)')
-                  ->setParameter('cat', $category->getId());
+                  ->setParameter('cat', $category);
             dump('category');
         }
         if ($tags) {
@@ -49,7 +49,7 @@ class GameRepository extends ServiceEntityRepository
 
             foreach ($tags as $tag) {
                 $query->andWhere('t.id IN (:tags)')
-                      ->setParameter('tags', $tag->getId());
+                      ->setParameter('tags', $tag);
             }
         }
         return $query->getQuery()

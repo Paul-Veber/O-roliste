@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Game;
 use App\Entity\GameMessage;
 use App\Form\GameMessageType;
-use App\Repository\GameMessageRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,22 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *  */
 class GameMessageController extends AbstractController
 {
-    /**
-     * @Route("", name="list")
-     */
-    public function list(GameMessageRepository $gameMessageRepository, Game $game): Response
-    {
-        //take all the message per id
-          $gameMessages = $gameMessageRepository->findByGameId($game->getId());
-          $idGame=$game->getId();
-
-        return $this->render('game_message/list.html.twig', [
-            'idGame'=> $idGame,
-            'gameMessages' => $gameMessages,
-        ]);
-    }
-
-    /**
+     /**
      * @Route("/new", name="new")
      */
     public function new(Request $request,Game $game): Response
@@ -54,7 +38,7 @@ class GameMessageController extends AbstractController
             $entityManager->flush();
 
             $id=$gameMessage->getGame()->getId();
-            return $this->redirectToRoute('game_message_list',['id'=>$id]);
+            return $this->redirectToRoute('game_read',['id'=>$id]);
         }
 
         return $this->render('game_message/new.html.twig', [
@@ -77,7 +61,7 @@ class GameMessageController extends AbstractController
             $this->getDoctrine()->getManager()->flush();            
             
             $id=$gameMessage->getGame()->getId();
-            return $this->redirectToRoute('game_message_list',['id'=>$id]);
+            return $this->redirectToRoute('game_read',['id'=>$id]);
         }
 
         return $this->render('game_message/edit.html.twig', [
@@ -98,6 +82,6 @@ class GameMessageController extends AbstractController
             $entityManager->flush();
         }
         $id=$gameMessage->getGame()->getId();
-        return $this->redirectToRoute('game_message_list',['id'=>$id]);
+        return $this->redirectToRoute('game_read',['id'=>$id]);
     }
 }

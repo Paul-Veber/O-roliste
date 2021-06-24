@@ -19,6 +19,16 @@ class MessageUserRepository extends ServiceEntityRepository
         parent::__construct($registry, MessageUser::class);
     }
 
+    public function findByConvId($id)
+    {
+        return $this->createQueryBuilder('message')
+            ->innerJoin('message.conversation', 't')
+            ->andWhere('t.id = :idconv')
+            ->setParameter('idconv', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return MessageUser[] Returns an array of MessageUser objects
     //  */

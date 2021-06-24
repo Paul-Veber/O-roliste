@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -18,16 +19,19 @@ class User implements UserInterface//, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"user_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"user_read"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=64, unique=true)
+     * @Groups({"user_read"})
      */
     private $username;
 
@@ -49,6 +53,7 @@ class User implements UserInterface//, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user_read"})
      */
     private $avatar;
 
@@ -82,6 +87,11 @@ class User implements UserInterface//, PasswordAuthenticatedUserInterface
      */
     private $conversations;
 
+    /**
+     * @ORM\OneToMany(targetEntity=MessageUser::class, mappedBy="user")
+     */
+    private $messageUsers;
+
     public function __construct()
     {
         $this->setRoles(["ROLE_USER"]);
@@ -89,7 +99,8 @@ class User implements UserInterface//, PasswordAuthenticatedUserInterface
         $this->gameMessages = new ArrayCollection(); 
         $this->creator = new ArrayCollection();
         $this->guests = new ArrayCollection();
-        $this->conversations = new ArrayCollection(); 
+        $this->conversations = new ArrayCollection();
+        $this->messageUsers = new ArrayCollection(); 
     }
     public function __toString()
     {
@@ -347,6 +358,36 @@ class User implements UserInterface//, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($conversation->getUser1() === $this) {
                 $conversation->setUser1(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MessageUser[]
+     */
+    public function getMessageUsers(): Collection
+    {
+        return $this->messageUsers;
+    }
+
+    public function addMessageUser(MessageUser $messageUser): self
+    {
+        if (!$this->messageUsers->contains($messageUser)) {
+            $this->messageUsers[] = $messageUser;
+            $messageUser->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessageUser(MessageUser $messageUser): self
+    {
+        if ($this->messageUsers->removeElement($messageUser)) {
+            // set the owning side to null (unless already changed)
+            if ($messageUser->getUser() === $this) {
+                $messageUser->setUser(null);
             }
         }
 

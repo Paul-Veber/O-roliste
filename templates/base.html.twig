@@ -8,14 +8,16 @@
 			{% endblock %}
 		</title>
 		{# Run `composer require symfony/webpack-encore-bundle`
-																								           and uncomment the following Encore helpers to start using Symfony UX #}
+		                                                                                                                                                                                                           and uncomment the following Encore helpers to start using Symfony UX #}
 		{% block stylesheets %}
 			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-			<link
-			rel="stylesheet" href="{{asset("css/style.css")}}">
+			<link rel="stylesheet" href="{{asset("css/styleadventure.css")}}">
+			<link rel="stylesheet" href="{{asset("css/style.css")}}">
+
 		{#{{ encore_entry_link_tags('app') }}#}
 		{% endblock %}
 
+		{% set images_directory = app.request.server.get('UPLOAD_IMAGES_DIRECTORY') %}
 		{% block javascripts %}
 			<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -24,17 +26,16 @@
 	</head>
 	<body>
 		{% include "nav.html.twig" %}
-		<div class="container">
+		<div class="container-xxl">
 			<div class="row">
-				<div class="col-sm-9"> {% block body %}{% endblock %}
-					</div>
-					<div class="col-sm-3">
-						{% include "nav-lateral.html.twig" %}
-					</div>
+				<div class="col-lg-3">
+					{% include "nav-lateral.html.twig" %}
+				</div>
+				<div class="col-lg-9"> 
+					{% block body %}{% endblock %}
 				</div>
 			</div>
-			{#TODO FOOTER#}
-		</body>
-	</html>
-		</body>
+		</div>
+		{#TODO FOOTER#}
+	</body>
 	</html>

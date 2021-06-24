@@ -37,6 +37,11 @@ class MessageUser
      */
     private $conversation;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="messageUsers")
+     */
+    private $user;
+
     public function __construct()
     {
         $this->createdAt=new \Datetime();
@@ -91,6 +96,18 @@ class MessageUser
     public function setConversation(?Conversation $conversation): self
     {
         $this->conversation = $conversation;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
