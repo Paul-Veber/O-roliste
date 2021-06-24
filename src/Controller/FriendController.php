@@ -69,20 +69,13 @@ class FriendController extends AbstractController
      */
     public function delete(Request $request, User $user): Response
     {
-        $friends = new User;
-        dd($friends->getFriendsWithMe());
-        if ($this->isCsrfTokenValid('delete'.$user->removeFriendsWithMe($user), $request->request->get('_token'))) {
+        $currentUser = $this->getUser();
 
-            $friends = $friends->getMyfriends()[0];
+        $currentUser->removeMyFriend($user);
 
-            $user->removeMyfriend($friends);
-            $friends->removeFriendsWithMe($user);
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($friends);
-            $entityManager->flush();
-        }
-        $id = $user->getId();
+        $this->getDoctrine()->getManager()->flush();
+        
+        $id = $currentUser->getId();
         return $this->redirectToRoute('friend_read' ,['id'=>$id]);
     }
 }
