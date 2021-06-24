@@ -13,12 +13,12 @@
 		{% for gameMessage in gameMessages %}
 			<div class="card mt-1">
 				<div class="card-header">
-					<img src="{{ asset(images_directory ~ '/' ~ gameMessage.user.avatar) }}" alt="Avatar de {{gameMessage.user.username}}">
+					<img src="{{ asset(images_directory ~ '/' ~ gameMessage.user.avatar) }}" class="rounded-circle img-thumbnail" width="75" alt="Avatar de {{gameMessage.user.username}}">
 					{{gameMessage.user.username}}
 
 					{% if is_granted('MESSAGE_EDIT', gameMessage) %}
-						<a href="{{ path('game_message_edit',{'id':idGame,'idMessage':gameMessage.id}) }}">
-							<button class="btn btn-danger">Editer</button>
+						<a href="{{ path('game_message_edit',{'id':idGame,'idMessage':gameMessage.id}) }}" class="btn btn-danger">
+							Editer
 						</a>
 
 						<form method="post" class="d-inline" action="{{ path('game_message_delete', {'id':idGame,'idMessage':gameMessage.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer ce message ?');">
