@@ -70,6 +70,7 @@ class FriendController extends AbstractController
     public function delete(Request $request, User $user): Response
     {
         $friends = new User;
+        dd($friends->getFriendsWithMe());
         if ($this->isCsrfTokenValid('delete'.$user->removeFriendsWithMe($user), $request->request->get('_token'))) {
 
             $friends = $friends->getMyfriends()[0];
