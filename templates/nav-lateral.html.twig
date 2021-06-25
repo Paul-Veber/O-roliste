@@ -1,8 +1,12 @@
 <button class="btn btn-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSearchBar" aria-expanded="false" aria-controls="collapseSearchBar">
-    Recherche <img src="{{asset("images/icons/arrow-down-square.svg")}}" width="25" height="25">
+	Recherche
+	<img src="{{asset("images/icons/arrow-down-square.svg")}}" width="25" height="25">
 </button>
 <div class="collapse" id="collapseSearchBar">
-    <div class="card card-body">
-        {{ render(controller('App\\Controller\\SearchController::searchBar')) }}
-</div>
+	<div class="card card-body">
+		{{ render(controller('App\\Controller\\SearchController::searchBar')) }}
+	</div>
+	<div class="card card-body">
+		{{ render(controller('App\\Controller\\SearchController::searchUserForm')) }}
+	</div>
 </div>
