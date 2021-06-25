@@ -36,32 +36,18 @@ class FriendController extends AbstractController
      * @Route("/add/{id}", name="add", requirements={"id"="\d+"})
      */
     public function add(Request $request, User $user, UserRepository $userRepository)
-        {
-        $friends = new User;
 
-        $form = $this->createForm(AddFriendType::class, $friends);
+    {
+        $currentUser = $this->getUser();
 
-        $form->handleRequest($request);
+        $currentUser->addMyFriend($user);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $friends = $friends->getMyfriends()[0];
-
-            $user->addMyfriend($friends);
-            $friends->addFriendsWithMe($user);
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($friends);
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            $id = $user->getId();
-            return $this->redirectToRoute('friend_read' ,['id'=>$id]);
-        }
-
-        return $this->render('friend/add.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+        
+        $id = $currentUser->getId();
+        return $this->redirectToRoute('friend_read' ,['id'=>$id]);
     }
 
      /**

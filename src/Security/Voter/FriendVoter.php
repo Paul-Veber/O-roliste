@@ -35,7 +35,7 @@ class FriendVoter extends Voter
                 break;
             case 'FRIEND_DELETE':
                 // Si l'utilisateur est un USER, il peut supprimer un ami
-                    if ($user->getId() === $subject->getId()) {
+                if ($user->getId() === $subject->getId()) {
                     return true;
                 }
                 break;

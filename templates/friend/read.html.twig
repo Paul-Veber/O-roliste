@@ -32,7 +32,7 @@
 			<div class="card-header">
 				{{friend.username}}
 				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					{% if is_granted('ROLE_USER') %}
+					{% if is_granted('FRIEND_DELETE', app.user) %}
 						<form action="{{ path('friend_delete', {id: friend.id}) }}" method="post" class="d-inline">
 
 							<button class="btn btn-danger">Supprimer</button>
@@ -46,9 +46,4 @@
 		</div>
 	{% endfor %}
 
-
-<pre>
-    {{ dump(idUser) }}
-    <pre>
-        {{ dump(friends) }}
-    </pre></pre>{% endblock %}
+{% endblock %}

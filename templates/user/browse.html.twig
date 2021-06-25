@@ -16,8 +16,8 @@
 					<h5 class="card-title">{{ user.username }}</h5>
 					<p class="card-text d-inline-block text-truncate" style="max-width: 100%;">{{ user.description }}</p>
 				</p>
-				{% if is_granted('FRIEND_ADD', user) %}
-					<form action="{{ path('friend_read', {id: user.id}) }}" method="post" class="d-inline">
+				{% if is_granted('ROLE_USER', user) %}
+					<form action="{{ path('friend_add', {id: user.id}) }}" method="post" class="d-inline">
 
 						<button class="btn btn-danger">Ajouter</button>
 
