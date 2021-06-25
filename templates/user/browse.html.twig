@@ -16,6 +16,15 @@
 					<h5 class="card-title">{{ user.username }}</h5>
 					<p class="card-text d-inline-block text-truncate" style="max-width: 100%;">{{ user.description }}</p>
 				</p>
+				{% if is_granted('ROLE_USER', user) %}
+					<form action="{{ path('friend_add', {id: user.id}) }}" method="post" class="d-inline">
+
+						<button class="btn btn-danger">Ajouter</button>
+
+						<input type="hidden" name="_method" value="add">
+						<input type="hidden" name="_token" value="{{ csrf_token('addFriend') }}">
+					</form>
+				{% endif %}
 			</div>
 		</div>
 	</div>
