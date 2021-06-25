@@ -3,13 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\Game;
+use App\Entity\User;
+use App\Form\SeachUserType;
+use Doctrine\ORM\Query;
 use App\Form\SearchType;
 use App\Repository\GameRepository;
-use Doctrine\ORM\Query;
+use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @Route("/search", name="search_")
+ */
 class SearchController extends AbstractController
 {
     public function searchBar()
@@ -17,14 +23,14 @@ class SearchController extends AbstractController
         $searchResult = new Game();
         $form = $this->createForm(SearchType::class, $searchResult, [
             'csrf_protection' => false,
-            'action' => $this->generateUrl('search')
+            'action' => $this->generateUrl('search_handle')
         ]);
         return $this->render('form/searchForm.html.twig', [
             'form' => $form->createView(),
         ]);
     }
     /**
-     * @Route("/search", name="search" )
+     * @Route("", name="handle" )
      *
      * @param Request $request
      */
@@ -40,4 +46,33 @@ class SearchController extends AbstractController
             'results' => $searchResult
         ]);
     }
+
+    public function searchUserForm()
+    {
+        $userSearch = new User();
+
+        $form = $this->createForm(SearchUserType::class, $userSearch, [
+            'csrf_protection' => false,
+            'action' => $this->generateUrl('search_user')
+        ]);
+        return $this->render('form/searchForm.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/user", name="user") 
+     */
+    public function searchUserConv(Request $request, UserRepository $userRepository)
+    {
+        $formData = $request->query->get('seach_user');
+;
+        $result = $userRepository->searchUsers($formData['username']);
+
+        return $this->render('conversation/search.html.twig',[
+            'users' => $result,
+        ]);
+    }
+
+    
 }

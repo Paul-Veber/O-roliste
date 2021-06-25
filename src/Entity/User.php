@@ -8,27 +8,31 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class User implements UserInterface//, PasswordAuthenticatedUserInterface
+class User implements UserInterface //, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"user_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"user_read"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=64, unique=true)
+     * @Groups({"user_read"})
      */
     private $username;
 
@@ -50,6 +54,7 @@ class User implements UserInterface//, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user_read"})
      */
     private $avatar;
 
@@ -88,15 +93,27 @@ class User implements UserInterface//, PasswordAuthenticatedUserInterface
      */
     private $myFriends;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Conversation::class, mappedBy="user_1")
+     */
+    private $conversations;
+
+    /**
+     * @ORM\OneToMany(targetEntity=MessageUser::class, mappedBy="user")
+     */
+    private $messageUsers;
+
     public function __construct()
     {
         $this->setRoles(["ROLE_USER"]);
-        $this->createdAt=new \Datetime();
-        $this->gameMessages = new ArrayCollection(); 
+        $this->createdAt = new \Datetime();
+        $this->gameMessages = new ArrayCollection();
         $this->creator = new ArrayCollection();
         $this->guests = new ArrayCollection();
         $this->friendsWithMe = new ArrayCollection();
-        $this->myFriends = new ArrayCollection(); 
+        $this->myFriends = new ArrayCollection();
+        $this->conversations = new ArrayCollection();
+        $this->messageUsers = new ArrayCollection();
     }
     public function __toString()
     {
@@ -131,7 +148,7 @@ class User implements UserInterface//, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-  
+
 
     /**
      * A visual identifier that represents this user.
@@ -141,7 +158,7 @@ class User implements UserInterface//, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
-    }    
+    }
 
     /**
      * @see UserInterface
@@ -261,7 +278,7 @@ class User implements UserInterface//, PasswordAuthenticatedUserInterface
         }
         return $this;
     }
-    
+
     /**
      * @return Collection|Game[]
      */
@@ -290,7 +307,7 @@ class User implements UserInterface//, PasswordAuthenticatedUserInterface
         }
         return $this;
     }
-            
+
     public function removeCreator(Game $creator): self
     {
         if ($this->creator->removeElement($creator)) {
@@ -347,9 +364,39 @@ class User implements UserInterface//, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**        
+     * @return Collection|Conversation[]
+     */
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    public function addConversation(Conversation $conversation): self
+    {
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations[] = $conversation;
+            $conversation->setUser1($this);
+        }
+
+        return $this;
+    }
+
     public function removeFriendsWithMe(self $friendsWithMe): self
     {
         $this->friendsWithMe->removeElement($friendsWithMe);
+
+        return $this;
+    }
+
+    public function removeConversation(Conversation $conversation): self
+    {
+        if ($this->conversations->removeElement($conversation)) {
+            // set the owning side to null (unless already changed)
+            if ($conversation->getUser1() === $this) {
+                $conversation->setUser1(null);
+            }
+        }
 
         return $this;
     }
@@ -371,11 +418,40 @@ class User implements UserInterface//, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    /**
+     * @return Collection|MessageUser[]
+     */
+    public function getMessageUsers(): Collection
+    {
+        return $this->messageUsers;
+    }
+
+    public function addMessageUser(MessageUser $messageUser): self
+    {
+        if (!$this->messageUsers->contains($messageUser)) {
+            $this->messageUsers[] = $messageUser;
+            $messageUser->setUser($this);
+        }
+
+        return $this;
+    }
 
     public function removeMyFriend(self $myFriend): self
     {
         if ($this->myFriends->removeElement($myFriend)) {
             $myFriend->removeFriendsWithMe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessageUser(MessageUser $messageUser): self
+    {
+        if ($this->messageUsers->removeElement($messageUser)) {
+            // set the owning side to null (unless already changed)
+            if ($messageUser->getUser() === $this) {
+                $messageUser->setUser(null);
+            }
         }
 
         return $this;
