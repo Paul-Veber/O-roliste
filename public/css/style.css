@@ -7,14 +7,9 @@ Authore link : http://bootstrapthemes.co
 html,
 body{
     font-size:16px;
-    background:rgb(255, 255, 255); 
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
-
     background: url("../images/background/background.jpg") no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
     background-size: cover;
 }
 h1,
@@ -82,3 +77,9 @@ img{
 .form-check-input{
     color: #ec4848;
 }
+.error404__page{
+    background: url("../images/background/error404page.jpg") no-repeat center center fixed; 
+    background-size: cover;
+    height: 100vh;    
+}
+
