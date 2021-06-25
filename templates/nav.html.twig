@@ -41,7 +41,7 @@
 				{% if is_granted('ROLE_USER') %}
 
 				<li class="nav-item me-3">
-						<a class="nav-link" href="#"><img src="{{asset("images/icons/envelope.svg")}}" width="25" height="25" alt="Message">
+						<a class="nav-link" href="{{path('conversation_browse')}}"><img src="{{asset("images/icons/envelope.svg")}}" width="25" height="25" alt="Message">
 						</a>
 					</li>
 				<li class="nav-item me-3">

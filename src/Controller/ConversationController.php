@@ -50,7 +50,7 @@ class ConversationController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="delete",methods={"DELETE"}, requirements={"id":"\d+"})
+     * @Route("/delete/{id}", name="delete", requirements={"id":"\d+"})
      *
      * @param Request $request
      * @param Conversation $conversation
@@ -63,7 +63,7 @@ class ConversationController extends AbstractController
             $entityManager->remove($conversation);
             $entityManager->flush();
         }
-        return $this->redirectToRoute('Conversation_browse');
+        return $this->redirectToRoute('conversation_browse');
     }
 
     /**

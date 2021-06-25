@@ -45,7 +45,7 @@ class Conversation
     private $user_2;
 
     /**
-     * @ORM\OneToMany(targetEntity=MessageUser::class, mappedBy="conversation")
+     * @ORM\OneToMany(targetEntity=MessageUser::class, mappedBy="conversation", cascade={"remove"})
      */
     private $messageUsers;
 

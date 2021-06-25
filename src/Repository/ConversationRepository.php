@@ -25,7 +25,6 @@ class ConversationRepository extends ServiceEntityRepository
             ->innerJoin('conversation.user_1', 'user1')
             ->innerJoin('conversation.user_2', 'user2')
             ->andWhere('user1.id = :idUser OR user2.id = :idUser')
-            //->andWhere('user2.id = :idUser')
             ->setParameter('idUser', $id)
             ->getQuery()    
             ->getResult();

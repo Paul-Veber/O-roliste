@@ -16,17 +16,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class MessageController extends AbstractController
 {
-    /**
-     * @Route("", name="browse")
-     *
-     * @return Response
-     */
-    public function index(): Response
-    {
-        return $this->render('message/index.html.twig', [
-            'controller_name' => 'MessageController',
-        ]);
-    }
 
     /**
      * @Route("/new_message", name="newMessage")
@@ -49,5 +38,28 @@ class MessageController extends AbstractController
         return $this->redirectToRoute('conversation_read', ['id' => $conversationId]);
     }
 
+    /**
+     * @Route("/delete/{idMessage}", name="delete", requirements={"idMessage": "\d+"})
+     * @ParamConverter("messageUser", options={"id"="idMessage"})
+     *
+     * @param MessageUser $messageUser
+     * @param Request $request
+     * @return void
+     */
+    public function delete(MessageUser $messageUser, Request $request)
+    {
+        $token = $request->request->get('_token');
+        if ($this->isCsrfTokenValid('deleteGame', $token)) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($messageUser);
+            $em->flush();
+
+            $convId = $messageUser->getConversation()->getId();
+            return $this->redirectToRoute('conversation_read', ['id'=>$convId]);
+        }
+
+        // Si le token n'est pas valide, on lance une exception Access Denied
+        throw $this->createAccessDeniedException('Le token n\'est pas valide.'); 
+    }
     
 }
