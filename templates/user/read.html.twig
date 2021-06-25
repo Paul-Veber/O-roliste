@@ -58,14 +58,19 @@
 	{% endif %}
 
 
-					{% if is_granted('ROLE_USER', user) %}
-					<form action="{{ path('friend_add', {id: user.id}) }}" method="post" class="d-inline">
+	{% if is_granted('ROLE_USER', user) %}
+		<form action="{{ path('friend_add', {id: user.id}) }}" method="post" class="d-inline">
 
-						<button class="btn btn-danger">Ajouter en ami</button>
+			<button class="btn btn-danger">Ajouter en ami</button>
 
-						<input type="hidden" name="_method" value="add">
-						<input type="hidden" name="_token" value="{{ csrf_token('addFriend') }}">
-					</form>
-				{% endif %}
+			<input type="hidden" name="_method" value="add">
+			<input type="hidden" name="_token" value="{{ csrf_token('addFriend') }}">
+		</form>
+		<div class="d-grid gap-2 d-md-flex justify-content-md-around">
+			<a href="{{path('conversation_add',{'id': user.id}) }}">
+				<button class="btn btn-primary me-md-2" type="button">Message</button>
+			</a>
+		</div>
+	{% endif %}
 
 {% endblock %}
