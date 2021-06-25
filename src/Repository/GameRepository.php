@@ -36,13 +36,11 @@ class GameRepository extends ServiceEntityRepository
         if ($searchTermn) {
             $query->andWhere('game.name LIKE :searchTerm')
                 ->setParameter('searchTerm', "%$searchTermn%");
-            dump('search');
         }
 
         if ($category) {
             $query->andWhere('game.category IN (:cat)')
                   ->setParameter('cat', $category);
-            dump('category');
         }
         if ($tags) {
             $query->leftJoin('game.tags', 't');
