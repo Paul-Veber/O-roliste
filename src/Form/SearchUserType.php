@@ -16,7 +16,7 @@ class SearchUserType extends AbstractType
         $builder
             ->add('username',TextType::class,[
                 'required' => false,
-                'label'=>'Utilisateur',
+                'label'=>'Nom',
             ])
             ->add('save', SubmitType::class, [
                 'label'=>'Recherche',
