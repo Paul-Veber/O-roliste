@@ -4,9 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Game;
 use App\Entity\User;
-use App\Form\SeachUserType;
-use Doctrine\ORM\Query;
 use App\Form\SearchType;
+use App\Form\SearchUserType;
 use App\Repository\GameRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,7 +40,7 @@ class SearchController extends AbstractController
         
         $category = !$formData['category'] ? null :  intval($formData['category']);
         $searchResult = $gameRepository->search($formData['name'], $category, $tags);
-        return $this->render('search/form.html.twig', [
+        return $this->render('search/result.html.twig', [
             'formData' => $formData,
             'results' => $searchResult
         ]);
@@ -50,29 +49,24 @@ class SearchController extends AbstractController
     public function searchUserForm()
     {
         $userSearch = new User();
-
         $form = $this->createForm(SearchUserType::class, $userSearch, [
             'csrf_protection' => false,
-            'action' => $this->generateUrl('search_user')
+            'action' => $this->generateUrl('search_users')
         ]);
-        return $this->render('form/searchForm.html.twig', [
+        return $this->render('form/searchFormUser.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/user", name="user") 
+     * @Route("/user", name="users") 
      */
     public function searchUserConv(Request $request, UserRepository $userRepository)
     {
-        $formData = $request->query->get('seach_user');
-;
+        $formData = $request->query->get('search_user');
         $result = $userRepository->searchUsers($formData['username']);
-
-        return $this->render('conversation/search.html.twig',[
+        return $this->render('search/result.html.twig',[
             'users' => $result,
         ]);
-    }
-
-    
+    }    
 }
