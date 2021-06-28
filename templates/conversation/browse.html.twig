@@ -7,8 +7,8 @@
 		<div class="row g-0">
 			<div class="col-md-8">
 				<div class="card-body">
-					<h5 class="card-title">{{ conversation.user1.username }}
-						{{ conversation.user2.username }}</h5>
+					<h5 class="card-title">{% if conversation.user1.username != currentUser.username %} {{conversation.user1.username}} {% else %}
+                        {{conversation.user2.username}} {% endif %}</h5>
 				</p>
 				<footer class="blockquote-footer">Crée le :
 					{{conversation.createdAt|date('d/m/Y à h:i')}}

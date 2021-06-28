@@ -7,6 +7,7 @@ use App\Entity\MessageUser;
 use App\Entity\User;
 use App\Form\MessageUserType;
 use App\Repository\ConversationRepository;
+use App\Repository\GameRepository;
 use App\Repository\MessageUserRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,26 +28,38 @@ class ConversationController extends AbstractController
         return $this->render('conversation/browse.html.twig', [
             'controller_name' => 'ConversationController',
             'conversations' => $conversationRepository->searchByUserId($user),
+            'currentUser' => $this->getUser()
         ]);
     }
 
     /**
      *@Route("/add/{id}", name="add", requirements={"id": "\d+"})
      */
-    public function add(User $user)
+    public function add(User $user, ConversationRepository $conversationRepository)
     {
         $user1 = $this->getUser();
         $user2 = $user;
+        //dd($conversationRepository->searchRedundancy($user1, $user2));
 
         $conversation = new Conversation;
-        $conversation->setUser1($user1);
-        $conversation->setUser2($user2);
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($conversation);
-        $em->flush();
+        $check1 = $conversationRepository->searchRedundancy($user1, $user2);
+        $check2 = $conversationRepository->searchRedundancy($user2, $user1);
 
-        return $this->redirectToRoute('conversation_browse');
+        if ($check1 != []) {
+            $conversation = $check1[0];
+        } elseif ($check2 != []) {
+            $conversation = $check2[0];
+        } else {
+            $conversation->setUser1($user1);
+            $conversation->setUser2($user2);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($conversation);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('conversation_read', ['id' => $conversation->getId()]);
     }
 
     /**

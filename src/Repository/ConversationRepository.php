@@ -30,6 +30,17 @@ class ConversationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function searchRedundancy($user1, $user2)
+    {
+        return $this->createQueryBuilder('conversation')
+        ->innerJoin('conversation.user_1', 'user1')
+        ->innerJoin('conversation.user_2', 'user2')
+        ->andWhere('user1.id = :idUser1 AND user2.id = :idUser2')
+        ->setParameters(['idUser1' => $user1, 'idUser2' => $user2])
+        ->getQuery()
+        ->getResult();
+    }
+
     // /**
     //  * @return Conversation[] Returns an array of Conversation objects
     //  */
