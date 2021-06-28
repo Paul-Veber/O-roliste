@@ -64,6 +64,7 @@ class SearchController extends AbstractController
     public function searchUserConv(Request $request, UserRepository $userRepository)
     {
         $formData = $request->query->get('search_user');
+;
         $result = $userRepository->searchUsers($formData['username']);
         return $this->render('search/result.html.twig',[
             'users' => $result,

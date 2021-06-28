@@ -73,4 +73,16 @@
 
 	{% endif %}
 
-{% endblock %}
+	{% if is_granted('ROLE_USER', user) %}
+		
+		<button class="btn btn-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFormInvit" aria-expanded="false" aria-controls="collapseSearchBar">
+			Ajouter à une partie
+			<img src="{{asset("images/icons/arrow-down-square.svg")}}" width="25" height="25">
+		</button>
+		<div class="collapse" id="collapseFormInvit">
+			<div class="card card-body">
+				{{ render(controller('App\\Controller\\InvitationController::form', { 'idUser': user.id})) }}
+			</div>
+		{% endif %}
+
+	{% endblock %}
