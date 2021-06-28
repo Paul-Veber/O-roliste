@@ -1,8 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ConversationController!
-{% endblock %}
-
 {% block body %}
 {% for conversation in conversations %}
 
@@ -18,11 +15,11 @@
 					{{ conversation.updatedAt is not null ? "modifié le : " ~ conversation.updatedAt|date('d/m/Y à h:i') }}</footer>
 				<div class="d-grid gap-2 col-6 mx-auto">
 					<a href="{{path('conversation_read',{'id': conversation.id}) }}">
-						<button class="btn btn-danger" type="button">commencer à discuter !</button>
+						<button class="btn btn-danger" type="button">Commencer à discuter !</button>
 					</a>
 					<form method="post" class="d-inline" action="{{ path('conversation_delete', {'id':conversation.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer ce message ?');">
 						<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ conversation.id) }}">
-						<button class="btn btn-danger">Supprimer</button>
+						<button class="btn btn-danger">Supprimer la conversation</button>
 					</form>
 				</div>
 			</div>

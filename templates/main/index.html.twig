@@ -5,14 +5,14 @@
 
 {% block body %}
 
-	<h1>Bienvenue sur O'Roliste</h1>
+	<h1>O'Roliste</h1>
 
 	<div class="card-group mb-5">
 
 		<div class="card h-100 mx-1">
 			<div class="card-body">
 
-				<h4>Dernières parties publiés</h4>
+				<h4>Dernières parties publiées</h4>
 
 				{% for gameFive in gamesFive %}
 					<div class="mt-2">
@@ -42,7 +42,7 @@
 		<div class="card h-100 mx-1">
 			<div class="card-body">
 
-				<h4>Nouveaux joueurs disponibles</h4>
+				<h4>Nouveaux joueurs</h4>
 
 				{% for userFive in usersFive %}
 					<div class='mt-2'>
@@ -51,14 +51,14 @@
 						<p class="card-text text-truncate">{{ userFive.description}}
 						</p>
 						<div>
-							<a href="{{path('user_read',{'id': userFive.id}) }}">
-								<button class="btn btn-danger" type="button">Afficher plus de détails</button>
+							<a href="{{path('user_read',{'id': userFive.id}) }}" class="btn btn-danger" type="button">
+								Détails
 							</a>
 
 							{% if is_granted('FRIEND_ADD', userFive) %}
 								<form action="{{ path('friend_add', {id: userFive.id}) }}" method="post" class="d-inline">
 
-									<button class="btn btn-danger btn-sm">Ajouter en ami</button>
+									<button class="btn btn-danger">Ajouter en ami</button>
 
 									<input type="hidden" name="_method" value="add">
 									<input type="hidden" name="_token" value="{{ csrf_token('addFriend') }}">
@@ -71,7 +71,7 @@
 				{% endfor %}
 				<div class="d-grid gap-2 col-6 mx-auto">
 					<a href="{{path('user_browse') }}">
-						<button class="btn btn-danger" type="button">Voir toutes les joueurs</button>
+						<button class="btn btn-danger" type="button">Voir tous les joueurs</button>
 					</a>
 				</div>
 			</div>
