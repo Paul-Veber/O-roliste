@@ -82,4 +82,8 @@ img{
     background-size: cover;
     height: 100vh;    
 }
+.form-check-input:checked{
+    background-color: #ec4848;
+    border-color: #ec4848;
+}
 
