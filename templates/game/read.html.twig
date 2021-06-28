@@ -114,7 +114,7 @@
 			<div class="card h-100">
 				<div class="card-body">
 					<h6 class="card-title">Catégorie de la partie</h6>
-					<p class="card-text"><img src="{{asset("images/icons/tags-fill.svg")}}" width="25" height="25" alt="category">{{ game.category }}</p>
+					<p class="card-text badge rounded-pill bg-success"><img src="{{asset("images/icons/tags-fill.svg")}}" width="25" height="25" alt="category">{{ game.category }}</p>
 				</div>
 			</div>
 		</div>
@@ -123,7 +123,7 @@
 			<div class="card h-100">
 				<div class="card-body">
 					<h6 class="card-title">Tags de la partie</h6>
-					<p class="card-text"><img src="{{asset("images/icons/tags-fill.svg")}}" width="25" height="25" alt="tag">
+					<p class="card-text badge bg-warning text-dark"><img src="{{asset("images/icons/tags-fill.svg")}}" width="25" height="25" alt="tag">
 						{% for tag in game.tags %}
 							{{ tag }}
 						{% endfor %}
