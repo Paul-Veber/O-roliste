@@ -29,7 +29,7 @@ class FriendVoter extends Voter
         switch ($attribute) {
             case 'FRIEND_ADD':
                 // Si l'utilisateur est un USER, il peut ajouter un ami
-                if (in_array('ROLE_USER', $user->getRoles())) {
+                if ($user->getId() === $subject->getId()) {
                     return true;
                 }
                 break;

@@ -3,11 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\AddFriendType;
-use App\Form\AddUserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,7 +36,6 @@ class FriendController extends AbstractController
 
     {
         $currentUser = $this->getUser();
-
         $currentUser->addMyFriend($user);
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -57,10 +53,10 @@ class FriendController extends AbstractController
     {
         $currentUser = $this->getUser();
 
-        $currentUser->removeMyFriend($user);
+        $this->denyAccessUnlessGranted('FRIEND_DELETE',$currentUser);
 
-        $this->getDoctrine()->getManager()->flush();
-        
+        $currentUser->removeMyFriend($user);
+        $this->getDoctrine()->getManager()->flush();        
         $id = $currentUser->getId();
         return $this->redirectToRoute('friend_read' ,['id'=>$id]);
     }

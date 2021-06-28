@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\MessageUser;
 use App\Entity\Conversation;
+use App\Entity\User;
 use App\Repository\MessageUserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,8 +23,8 @@ class MessageController extends AbstractController
      */
     public function newMessage(Request $request, Conversation $conversation)
     {
-        $formData = $request->query->get('newMessage');
 
+        $formData = $request->query->get('newMessage');
         $conversationId = $conversation->getId();
 
         $newMessage = new MessageUser;
@@ -46,7 +47,7 @@ class MessageController extends AbstractController
      * @param Request $request
      * @return void
      */
-    public function delete(MessageUser $messageUser, Request $request)
+    public function delete(MessageUser $messageUser, User $user, Request $request)
     {
         $token = $request->request->get('_token');
         if ($this->isCsrfTokenValid('delete' . $messageUser->getId(), $token)) {

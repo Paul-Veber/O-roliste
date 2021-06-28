@@ -37,6 +37,7 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/user/signin, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/game/\d+/message, roles: ROLE_USER }
+        - { path: ^/friend, roles: ROLE_USER }
         - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         
     role_hierarchy:

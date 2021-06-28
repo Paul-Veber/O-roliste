@@ -19,11 +19,13 @@
 				{% if is_granted('ROLE_USER', user) %}
 					<form action="{{ path('friend_add', {id: user.id}) }}" method="post" class="d-inline">
 
-						<button class="btn btn-danger">Ajouter</button>
+						<button class="btn btn-danger">Ajouter en ami</button>
 
 						<input type="hidden" name="_method" value="add">
 						<input type="hidden" name="_token" value="{{ csrf_token('addFriend') }}">
 					</form>
+
+					<a href="{{ path("friend_read",{id: user.id}) }}" class="btn btn-danger"> Voir le profil</a>
 				{% endif %}
 			</div>
 		</div>
