@@ -52,17 +52,17 @@
 						</p>
 						<div>
 							<a href="{{path('user_read',{'id': userFive.id}) }}" class="btn btn-danger" type="button">
-								Détails
+								Voir le profil
 							</a>
 
-							{% if is_granted('FRIEND_ADD', userFive) %}
-								<form action="{{ path('friend_add', {id: userFive.id}) }}" method="post" class="d-inline">
-
-									<button class="btn btn-danger">Ajouter en ami</button>
-
-									<input type="hidden" name="_method" value="add">
-									<input type="hidden" name="_token" value="{{ csrf_token('addFriend') }}">
-								</form>
+							{% if is_granted('ROLE_USER') %}
+								{% if is_granted('IS_USER', userFive) %}
+										<form action="{{ path('friend_add', {id: userFive.id}) }}" method="post" class="d-inline">
+										<button class="btn btn-danger">Ajouter en ami</button>
+										<input type="hidden" name="_method" value="add">
+										<input type="hidden" name="_token" value="{{ csrf_token('addFriend') }}">
+									</form>
+									{% endif %}
 							{% endif %}
 
 						</div>

@@ -13,6 +13,7 @@
 						<p class="card-text"></p>
 
 						{% if is_granted('FRIEND_DELETE', app.user) %}
+
 							<form action="{{ path('friend_delete', {id: friend.id}) }}" method="post" class="d-inline">
 
 								<button class="btn btn-danger">Supprimer</button>
@@ -20,6 +21,10 @@
 								<input type="hidden" name="_method" value="delete">
 								<input type="hidden" name="_token" value="{{ csrf_token('deleteFriend') }}">
 							</form>
+
+							<a href="{{path('user_read',{'id': friend.id}) }}" class="btn btn-danger" type="button">
+								Voir le profil
+							</a>
 						{% endif %}
 
 					</div>
