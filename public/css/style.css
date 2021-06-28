@@ -59,6 +59,19 @@ button{
 .card{
     background-color: rgba(200, 200, 200, 0.7);
 }
+.accordion-button:not(.collapsed){
+    color: black;
+    background-color: rgba(200, 200, 200, 0.7);
+}
+.accordion-item{
+    background-color: rgba(200, 200, 200, 0.7);
+}
+.accordion-button{
+    background-color: rgba(200, 200, 200, 0.7);
+}
+#gameMessages{
+    border: 0px;
+}
 .help-text{
     color: rgb(40, 40, 40);
 }

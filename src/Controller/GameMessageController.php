@@ -16,6 +16,21 @@ use Symfony\Component\Routing\Annotation\Route;
  *  */
 class GameMessageController extends AbstractController
 {
+
+    public function form(int $gameId)
+    {
+        $gameMessage = new GameMessage();
+
+        $this->denyAccessUnlessGranted('ROLE_USER', $gameMessage);
+
+        $form = $this->createForm(GameMessageType::class, $gameMessage, [
+            'action' => $this->generateUrl('game_message_new', ['id' => $gameId])
+        ]);
+
+        return $this->render('game_message/new.html.twig',[
+            'form' => $form->createView(),
+        ]);
+    }
      /**
      * @Route("/new", name="new")
      */
@@ -49,6 +64,7 @@ class GameMessageController extends AbstractController
         return $this->render('game_message/new.html.twig', [
             'form' => $form->createView(),
         ]);
+    
     }
 
     /**
