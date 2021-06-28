@@ -13,7 +13,7 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
-		<div class="collapse navbar-collapse mt-1 mb-1" id="navbarSupportedContent">
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 
 			<ul class="navbar-nav list-group-horizontal">
 				{% if app.user is null %}
@@ -47,10 +47,10 @@
 						<a class="nav-link" href="{{path('conversation_browse')}}"><img src="{{asset("images/icons/envelope.svg")}}" width="25" height="25" alt="Message">
 						</a>
 					</li>
-					<li class="nav-item me-3">
+				{#}	<li class="nav-item me-3">
 						<a class="nav-link" href="#"><img src="{{asset("images/icons/bell.svg")}}" width="25" height="25" alt="Notifications">
 						</a>
-					</li>
+					</li>{#}
 					<li class="nav-item me-3">
 						<a class="nav-link" href="{{path('friend_read',{'id': app.user.id}) }}"><img src="{{asset("images/icons/people.svg")}}" width="25" height="25" alt="Amis">
 						</a>

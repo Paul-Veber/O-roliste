@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouveau message
-{% endblock %}
-
 {% block body %}
 
 	{% if is_granted('ROLE_USER') %}
+
+	<h1>Nouveau message</h1>
 
 		<div class="card mt-3 w-auto">
 			<div class="card-body">

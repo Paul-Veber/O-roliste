@@ -3,7 +3,7 @@ const config =  {
     mode: "cors",
     cache: "no-cache",
   }
-const apiRootUrl =  "http://0.0.0.0:8080"
+const apiRootUrl =  "http://127.0.0.1:8080"
   
 /**
  * create an http request to fetch data

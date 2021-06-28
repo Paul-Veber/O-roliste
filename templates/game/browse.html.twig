@@ -1,8 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des parties
-{% endblock %}
-
 {% block body %}
 
 {% for game in games %}
@@ -22,7 +19,7 @@
 						{{ game.updatedAt is not null ? "modifié le : " ~ game.updatedAt|date('d/m/Y à h:i') }}</footer>
 				<div class="d-grid gap-2 col-6 mx-auto">
 					<a href="{{path('game_read',{'id': game.id}) }}">
-						<button class="btn btn-danger" type="button">Voir le détail de la partie</button>
+						<button class="btn btn-danger" type="button">Détails</button>
 					</a>
 				</div>
 			</div>

@@ -12,7 +12,7 @@
 		{% for convMessage in convMessages %}
 			<div class="card mt-1">
 				<div class="card-header">
-					<img src="{{ asset(images_directory ~ '/' ~ convMessage.user.avatar) }}" alt="Avatar de {{convMessage.user.username}}">
+					<img src="{{ asset(images_directory ~ '/' ~ convMessage.user.avatar) }}" class="rounded-circle img-thumbnail" width="75" alt="Avatar de {{convMessage.user.username}}">
 					{{convMessage.user.username}}
 
 					{% if is_granted('MESSAGE_EDIT', convMessage) %}

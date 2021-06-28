@@ -24,7 +24,7 @@ class ConversationController extends AbstractController
     public function browse(ConversationRepository $conversationRepository): Response
     {
         $user = $this->getUser()->getId();
-        return $this->render('conversation/index.html.twig', [
+        return $this->render('conversation/browse.html.twig', [
             'controller_name' => 'ConversationController',
             'conversations' => $conversationRepository->searchByUserId($user),
         ]);

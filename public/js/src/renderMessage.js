@@ -21,7 +21,7 @@ const updated = convMessage => {
 const message =(convMessage, user) => `
 <div class="card mt-1">
 				<div class="card-header">
-					<img src="${user.avatar}" alt="Avatar de ${user.username}">
+					<img src="${user.avatar}" class="rounded-circle img-thumbnail" width="75" alt="Avatar de ${user.username}">
 					${user.username}
                     ${messageCustomize(user)}
 				</div>
