@@ -5,57 +5,18 @@
 	{% if results is defined %}
 		{% if results is not empty %}
 			{% for result in results %}
-				<div class="card m-3" style="max-width: 100%;">
-					<div class="row g-0">
-						<div class="col-md-2">
-							<img src="{{ asset(images_directory ~ '/' ~ result.image) }}" class="rounded-circle img-thumbnail" width="150" alt="Illustration de {{result.name}}">
-						</div>
-						<div class="col-md-8">
-							<div class="card-body">
-								<h5 class="card-title">{{ result.name }}</h5>
-								<p class="card-text d-inline-block text-truncate" style="max-width: 100%;">{{ result.description }}</p>
-							</p>
-							<footer class="blockquote-footer">Crée le :
-								{{result.createdAt|date('d/m/Y à h:i')}}
-								{{ result.updatedAt is not null ? "modifié le : " ~ result.updatedAt|date('d/m/Y à h:i') }}</footer>
-							<div class="d-grid gap-2 col-6 mx-auto">
-								<a href="{{path('game_read',{'id': result.id}) }}">
-									<button class="btn btn-danger" type="button">Voir le détail de la partie</button>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 
-		{% endfor %}
+				{% include "search/_result_game.html.twig" %}
+
+			{% endfor %}
+		{% endif %}
+	{% elseif users is defined %}
+		{% if users is not empty %}
+			{% for user in users %}
+
+				{% include "search/_result_user.html.twig" %}
+
+			{% endfor %}
+		{% endif %}
 	{% endif %}
-{% elseif users is defined %}
-	{% if users is not empty %}
-
-		{% for user in users %}
-
-
-			<div class="card m-3" style="max-width: 100%;">
-				<div class="row g-0">
-					<div class="col-md-2">
-						<img src="{{ asset(images_directory ~ '/' ~ user.avatar)}}" class="img-thumbnail" width="200" height="200" alt="{{user.username}}">
-					</div>
-					<div class="col-md-8">
-						<div class="card-body">
-							<h5 class="card-title">{{ user.username }}</h5>
-							<p class="card-text d-inline-block text-truncate" style="max-width: 100%;">{{ user.description }}</p>
-
-							<a href="{{path('user_read',{'id': user.id}) }}">
-								<button class="btn btn-danger m-1">Voir profil
-								</button>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-
-
-		{% endfor %}
-	{% endif %}
-{% endif %}{% endblock %}
+{% endblock %}
