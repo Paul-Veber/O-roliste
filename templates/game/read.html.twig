@@ -153,24 +153,18 @@
 			<div class="card h-100">
 				<div class="card-body">
 					<h6 class="card-title">Joueurs inscrits</h6>
-
-					<p class="card-text">Joueur 1
-						{% if is_granted('ROLE_USER') %}
-							<a href="#" class="btn btn-danger">Ajouter</a>
-						{% endif %}
-					</p>
-					<p class="card-text">Joueur 2
-						{% if is_granted('ROLE_USER') %}
-							<a href="#" class="btn btn-danger">Ajouter</a>
-						{% endif %}
-					</p>
-
-					<p class="card-text">Joueur 3
-						{% if is_granted('ROLE_USER') %}
-							<a href="#" class="btn btn-danger">Ajouter</a>
-						{% endif %}
-					</p>
-
+					{% for guest in game.guests %}
+						<p class="card-text">
+							<a href="{{path("user_read",{id: guest.id})}}">{{guest.username}}</a>
+							{% if is_granted('ROLE_USER') %}
+								<a href="{{path("invitation_delete", {id:game.id, idGuest:guest.id})}}" class="btn btn-danger">supprimer</a>
+							{% endif %}
+						</p>
+					{% endfor %}
+					{% if game.guests is empty %}
+						<p>Vous n'avez invité aucun joueurs</p>
+						<a href="{{path("user_browse")}}">Trouvez en dés maintenant !</a>
+					{% endif %}
 				</div>
 			</div>
 
@@ -291,22 +285,19 @@
 			</h2>
 			<div id="panelsStayOpen-collapseEight" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingEight">
 				<div class="accordion-body">
-					<p class="card-text">Joueur 1
-						{% if is_granted('ROLE_USER') %}
-							<a href="#" class="btn btn-danger">Ajouter</a>
-						{% endif %}
-					</p>
-					<p class="card-text">Joueur 2
-						{% if is_granted('ROLE_USER') %}
-							<a href="#" class="btn btn-danger">Ajouter</a>
-						{% endif %}
-					</p>
+					{% for guest in game.guests %}
+						<p class="card-text">
+							<a href="{{path("user_read",{id: guest.id})}}">{{guest.username}}</a>
 
-					<p class="card-text">Joueur 3
-						{% if is_granted('ROLE_USER') %}
-							<a href="#" class="btn btn-danger">Ajouter</a>
-						{% endif %}
-					</p>
+							{% if is_granted('ROLE_USER') %}
+								<a href="{{path("invitation_delete", {id:game.id, idGuest:guest.id})}}" class="btn btn-danger">supprimer</a>
+							{% endif %}
+						</p>
+					{% endfor %}
+					{% if game.guests is empty %}
+						<p>Vous n'avez invité aucun joueurs</p>
+						<a href="{{path("user_browse")}}">Trouvez en dés maintenant !</a>
+					{% endif %}
 				</div>
 			</div>
 		</div>
