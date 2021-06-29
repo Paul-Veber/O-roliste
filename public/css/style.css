@@ -23,22 +23,45 @@ h1 {
     font-size: 4rem;
     line-height: 5rem;
     color: #fff;
+    font-family: sans-serif;
+    src: url("/public/css/font/fontastique.ttf");
+    font-style: italic;
+    font-weight: bold;
+    text-shadow:   -1px -1px 0 red,  
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+     1px 1px 0 #fff,
+     1px 1px 10px #141414;color:#333;
+text-align: center;
 }
 h2 {
     font-size: 2rem;
     line-height: 2.5rem;
     font-weight: 700;
     color: #fff;
+
 }
 h3 {
     font-size: 1.2rem;
     line-height: 1.5rem;
     font-weight: 700;
+    text-shadow:   -1px -1px 0 #fff,  
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+     1px 1px 0 #fff,
+     1px 1px 10px #141414;color:#333;
+
 }
 h4 {
     font-size: 1.222rem;
     line-height: 2rem;
     font-weight: 700;
+    text-shadow:   -1px -1px 0 #fff,  
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+     1px 1px 0 #fff,
+     1px 1px 10px #141414;color:#333;
+     text-align: center;
 }
 label{
     color: rgb(20, 20, 20);
@@ -59,6 +82,21 @@ button{
 .card{
     background-color: rgba(200, 200, 200, 0.7);
 }
+.card-title{
+    text-shadow:#e7f6ff 0 -1px 0;color:#333;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+.card-text{
+    color: black;
+    font-weight: 400;
+}
+.fw-bold{
+    text-shadow:#e7f6ff 0 -1px 0;color:#333;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
 .accordion-button:not(.collapsed){
     color: black;
     background-color: rgba(200, 200, 200, 0.7);
@@ -99,4 +137,5 @@ img{
     background-color: #ec4848;
     border-color: #ec4848;
 }
+
 
