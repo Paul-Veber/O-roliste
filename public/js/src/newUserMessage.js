@@ -27,6 +27,11 @@ const displayNewMessage = convMessage => {
     oneMessage(convMessage, 'userMessages')
 }
 
+const afterResponse = (response) => {
+    console.log(response)
+    location.reload()
+}
+
 /**
  * handle message form submit event
  * @param {event} evt 
@@ -34,7 +39,7 @@ const displayNewMessage = convMessage => {
 export const addMessage = evt => {
     //evt.preventDefault()
     console.log(formToApiConfig())
-    sendData(apiRoute, formToApiConfig(), console.log)
+    sendData(apiRoute, formToApiConfig(), afterResponse)
 
 }
 
