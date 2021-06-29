@@ -42,7 +42,7 @@ App\Entity\Category:
     name: "<words(1, true)>"
 
 App\Entity\Tag:
-  tag_{1..4}:
+  tag_{1..10}:
     name: "<username()>"
     games: ["@game_<numberBetween(1,5)>", "@game_<numberBetween(1,5)>"]
 
