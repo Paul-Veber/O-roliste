@@ -15,27 +15,24 @@
 						{{user.description}}
 					</p>
 					{% if is_granted('ROLE_USER', user) %}
-						<a href="{{path('conversation_add',{'id': user.id}) }}">
-							<button class="btn btn-danger me-md-2" type="button">Message</button>
+						<a href="{{path('conversation_add',{'id': user.id}) }}" class="btn btn-danger btn-sm">
+							Message
 						</a>
+						<form action="{{ path('friend_add', {id: user.id}) }}" method="post" class="d-inline">
+
+							<button class="btn btn-danger btn-sm">Ajouter en ami</button>
+
+							<input type="hidden" name="_method" value="add">
+							<input type="hidden" name="_token" value="{{ csrf_token('addFriend') }}">
+						</form>
 					{% endif %}
 				</div>
 			</div>
 		</div>
 	</div>
 
-	{% if is_granted('ROLE_USER', user) %}
-		<form action="{{ path('friend_add', {id: user.id}) }}" method="post" class="d-inline">
-
-			<button class="btn btn-danger">Ajouter en ami</button>
-
-			<input type="hidden" name="_method" value="add">
-			<input type="hidden" name="_token" value="{{ csrf_token('addFriend') }}">
-		</form>
-	{% endif %}
-
 	{% if is_granted('ROLE_USER') %}
-		{#check if gamesCreate is empty #}
+		{#}check if gamesCreate is empty #}
 		{% if gamesCreate %}
 			<h2>Parties créer</h2>
 
@@ -74,7 +71,7 @@
 	{% endif %}
 
 	{% if is_granted('ROLE_USER', user) %}
-		
+
 		<button class="btn btn-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFormInvit" aria-expanded="false" aria-controls="collapseSearchBar">
 			Ajouter à une partie
 			<img src="{{asset("images/icons/arrow-down-square.svg")}}" width="25" height="25">

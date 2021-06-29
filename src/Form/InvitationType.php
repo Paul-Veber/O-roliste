@@ -12,10 +12,11 @@ class InvitationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add("creator", null, [
+            ->add('creator', null, [
                 'expanded' => false,
                 'required' => false,
-            ]);
+            ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

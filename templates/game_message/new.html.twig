@@ -1,8 +1,6 @@
 	{% if is_granted('ROLE_USER') %}
 
-	<h1>Nouveau message</h1>
-
-		<div class="card mt-3 w-auto">
+		<div class="card w-auto mt-1">
 			<div class="card-body">
                 <span class="important__label">(*) champs obligatoires</span>
 				{{ form_start(form) }}

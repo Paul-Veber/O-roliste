@@ -22,8 +22,8 @@
 			</div>
 		</div>
 		<a href="{{path("user_edit")}}">
-			<button class="btn btn-danger" type="button">
-				Changer ses informations
+			<button class="btn btn-danger btn-sm" type="button">
+				Modifier  son profil
 			</button>
 		</a>
 	</div>
@@ -44,15 +44,15 @@
 						<p class="card-text d-inline-block text-truncate" style="max-width: 100%;">{{ gameCreate.description }}</p>
 
 						<br>
-						<a href="{{path('game_read',{'id': gameCreate.id}) }}" class="btn btn-danger">
+						<a href="{{path('game_read',{'id': gameCreate.id}) }}" class="btn btn-danger btn-sm">
 							Voir le détail
 						</a>
-						<a href="{{ path('game_edit',{'id':gameCreate.id}) }}"class="btn btn-danger">
+						<a href="{{ path('game_edit',{'id':gameCreate.id}) }}"class="btn btn-danger btn-sm">
 							Editer
 						</a>
 						<form method="post" class="d-inline" action="{{ path('game_delete', {'id':gameCreate.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer cette partie ?');">
 							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ gameCreate.id) }}">
-						<button class=" btn btn-danger">Supprimer</button>
+						<button class=" btn btn-danger btn-sm">Supprimer</button>
 						</form>
 						
 					</div>

@@ -31,7 +31,10 @@
 					<p class="card-text">
 						{{ game.creator.description}}
 					</p>
-					<button class="btn btn-danger me-md-2 btn-sm" type="button">Message</button>
+					{% if is_granted('ROLE_USER') %}
+						<a href="{{path('conversation_add',{'id': game.creator.id}) }}" class="btn btn-danger btn-sm">Message</a>
+						<a href="{{path('user_read',{'id': game.creator.id}) }}" class="btn btn-danger btn-sm">Profil</a>
+					{% endif %}
 				</div>
 			</div>
 		</div>
@@ -146,13 +149,17 @@
 						<p class="card-text">
 							<a href="{{path("user_read",{id: guest.id})}}">{{guest.username}}</a>
 							{% if is_granted('ROLE_USER') %}
-								<a href="{{path("invitation_delete", {id:game.id, idGuest:guest.id})}}" class="btn btn-danger">supprimer</a>
+								{% if is_granted('IS_USER',game.creator) %}
+									<a href="{{path("invitation_delete", {id:game.id, idGuest:guest.id})}}" class="btn btn-danger">Supprimer</a>
+								{% endif %}
 							{% endif %}
 						</p>
 					{% endfor %}
-					{% if game.guests is empty %}
-						<p>Vous n'avez invité aucun joueurs</p>
-						<a href="{{path("user_browse")}}">Trouvez en dés maintenant !</a>
+					{% if is_granted('IS_USER',game.creator) %}
+						{% if game.guests is empty %}
+							<p>Vous n'avez invité aucun joueurs</p>
+							<a href="{{path("user_browse")}}">Trouvez en dès maintenant !</a>
+						{% endif %}
 					{% endif %}
 				</div>
 			</div>
@@ -271,13 +278,18 @@
 							<a href="{{path("user_read",{id: guest.id})}}">{{guest.username}}</a>
 
 							{% if is_granted('ROLE_USER') %}
-								<a href="{{path("invitation_delete", {id:game.id, idGuest:guest.id})}}" class="btn btn-danger">supprimer</a>
+								{% if is_granted('IS_USER',game.creator) %}
+									<a href="{{path("invitation_delete", {id:game.id, idGuest:guest.id})}}" class="btn btn-danger">Supprimer</a>
+								{% endif %}
 							{% endif %}
 						</p>
 					{% endfor %}
-					{% if game.guests is empty %}
-						<p>Vous n'avez invité aucun joueurs</p>
-						<a href="{{path("user_browse")}}">Trouvez en dés maintenant !</a>
+
+					{% if is_granted('IS_USER',game.creator) %}
+						{% if game.guests is empty %}
+							<p>Vous n'avez invité aucun joueurs</p>
+							<a href="{{path("user_browse")}}">Trouvez en dés maintenant !</a>
+						{% endif %}
 					{% endif %}
 				</div>
 			</div>
@@ -286,25 +298,10 @@
 
 
 	<div class="d-grid gap-2 d-md-flex justify-content-md-between">
-		<a href="{{path('game_browse') }}">
-			<button class="btn btn-danger me-md-2 btn-lg" type="button">Retour à la liste des parties</button>
+		<a href="{{path('game_browse') }}" class="btn btn-danger me-md-2 btn-lg">
+			Retour à la liste des parties
 		</a>
-
-		{% if is_granted('ROLE_USER') %}
-			<button class="btn btn-danger me-md-2 btn-lg" type="button">Rejoindre</button>
-		</div>
-
-	{% else %}
-		<div class="col mt-1">
-			<div class="card h-100">
-				<div class="card-body">
-					<p class="card-text">
-						{% include "game/_login_connect.html.twig" %}
-					</p>
-				</div>
-			</div>
-		</div>
-	{% endif %}
+	</div>
 
 	{% include "game_message/list.html.twig" %}
 
