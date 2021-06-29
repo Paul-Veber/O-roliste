@@ -83,20 +83,20 @@ button{
     background-color: rgba(200, 200, 200, 0.7);
 }
 .card-title{
-    text-shadow:#e7f6ff 0 -1px 0,
-    #333 5px 5px 10px;color:#333;
+    text-shadow:#e7f6ff 0 -1px 0;color:#333;
     font-weight: bold;
+    font-size: 1.2rem;
 }
 .card-text{
     color: black;
     font-weight: 400;
 }
 .fw-bold{
-    text-shadow:#e7f6ff 0 -1px 0,
-    #333 5px 5px 10px;color:#333;
+    text-shadow:#e7f6ff 0 -1px 0;color:#333;
     font-weight: bold;
     font-size: 1.2rem;
 }
+
 .accordion-button:not(.collapsed){
     color: black;
     background-color: rgba(200, 200, 200, 0.7);
