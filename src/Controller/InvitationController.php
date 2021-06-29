@@ -40,10 +40,10 @@ class InvitationController extends AbstractController
 
             ])
             ->getForm();
-    
-            return $this->render('form/invitationForm.html.twig',[
-                'form' => $form->createView()
-            ]);
+
+        return $this->render('form/invitationForm.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
     /**
      * @Route("/user/{id}", name="add", requirements={"id"="\d+"})
@@ -57,13 +57,35 @@ class InvitationController extends AbstractController
         $formData = $request->request->get('form')['creator'][0];
         $game = $gameRepository->find($formData);
 
-        $game->addGuest($user);
+        $guests = $game->getGuests();
+        $maxPlayer = $game->getMaxPlayer();
 
-        $this->getDoctrine()->getManager()->flush();
+        $error = '';
 
-        $id = $game->getId();
-        return $this->redirectToRoute('game_read', ['id' => $id]);
-       
+        if (count($guests) < $maxPlayer) {
+
+            $userCheck = $guests->contains($user);
+            $currentUser = $this->getUser();
+
+            if ($currentUser->getUsername() == $user->getUsername()) {
+                $error = "Vous êtes déjà le créateur de la partie !";
+            } elseif (!$userCheck) {
+
+                $game->addGuest($user);
+
+                $this->getDoctrine()->getManager()->flush();
+                $id = $game->getId();
+                return $this->redirectToRoute('game_read', ['id' => $id]);
+            } else {
+                $error = "L'utilisateur est déjà sur cette partie";
+            }
+
+            return $this->render('user/read.html.twig',[
+                'user' => $user,
+                'error' => $error,
+                'gamesCreate' => $gameRepository->findByCreatorId($user->getId())
+            ]);
+        }
     }
 
     /**
