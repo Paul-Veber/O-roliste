@@ -88,13 +88,19 @@
 				</div>
 			</div>
 		</div>
-
 		<div class="col">
 			<div class="card h-100">
 				<div class="card-body">
 					<h6 class="card-title">Lien vers la partie</h6>
 					{% if is_granted('ROLE_USER') %}
-						<p class="card-text"><img src="{{asset("images/icons/link-45deg.svg")}}" width="25" height="25" alt="link"><a href="#">{{ game.link }}</a>
+						<p class="card-text">
+							{% if autorisation %}
+								<img src="{{asset("images/icons/link-45deg.svg")}}" width="25" height="25" alt="link">
+								<a href="#">
+									{{ game.link }}</a>
+							{% else %}
+								Vous devez être invité pour avoir cette infos
+							{% endif %}
 						</p>
 					{% else %}
 						{% include "game/_login_connect.html.twig" %}
@@ -102,7 +108,6 @@
 				</div>
 			</div>
 		</div>
-
 		<div class="col">
 			<div class="card h-100">
 				<div class="card-body">
@@ -130,7 +135,13 @@
 				<div class="card-body">
 					<h6 class="card-title">Adresse de la partie</h6>
 					{% if is_granted('ROLE_USER') %}
-						<p class="card-text"><img src="{{asset("images/icons/cup-fill.svg")}}" class="mx-1" width="25" height="25" alt="adresse">{{ game.address }}</p>
+						<p class="card-text">
+							{% if autorisation %}
+								<img src="{{asset("images/icons/cup-fill.svg")}}" class="mx-1" width="25" height="25" alt="adresse">{{ game.address }}
+							{% else %}
+								Vous devez être invité pour avoir cette information
+							{% endif %}
+						</p>
 					{% else %}
 						{% include "game/_login_connect.html.twig" %}
 					{% endif %}
@@ -208,8 +219,13 @@
 			<div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
 				<div class="accordion-body">
 					{% if is_granted('ROLE_USER') %}
-						<p class="card-text"><img src="{{asset("images/icons/link-45deg.svg")}}" width="25" height="25" alt="link"><a href="#">{{ game.link }}</a>
-						</p>
+						{% if autorisation %}
+							<img src="{{asset("images/icons/link-45deg.svg")}}" width="25" height="25" alt="link">
+							<a href="#">
+								{{ game.link }}</a>
+						{% else %}
+							Vous devez être invité pour avoir cette infos
+						{% endif %}
 					{% else %}
 						{% include "game/_login_connect.html.twig" %}
 					{% endif %}
@@ -251,7 +267,13 @@
 			<div id="panelsStayOpen-collapseSeven" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSeven">
 				<div class="accordion-body">
 					{% if is_granted('ROLE_USER') %}
-						<p class="card-text"><img src="{{asset("images/icons/cup-fill.svg")}}" width="25" height="25" alt="adresse">{{ game.address }}</p>
+						<p class="card-text">
+							{% if autorisation %}
+								<img src="{{asset("images/icons/cup-fill.svg")}}" class="mx-1" width="25" height="25" alt="adresse">{{ game.address }}
+							{% else %}
+								Vous devez être invité pour avoir cette information
+							{% endif %}
+						</p>
 					{% else %}
 						{% include "game/_login_connect.html.twig" %}
 					{% endif %}
