@@ -25,6 +25,7 @@ class MessageUserRepository extends ServiceEntityRepository
             ->innerJoin('message.conversation', 't')
             ->andWhere('t.id = :idconv')
             ->setParameter('idconv', $id)
+            ->orderBy('message.createdAt', 'DESC')
             ->getQuery()
             ->getResult();
     }

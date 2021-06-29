@@ -25,6 +25,7 @@ class GameMessageRepository extends ServiceEntityRepository
             ->innerJoin('q.game', 't')
             ->andWhere('t = :idgame')
             ->setParameter('idgame', $id)
+            ->orderBy('q.createdAt', 'DESC')
             ->getQuery()
             ->getResult();
     }
