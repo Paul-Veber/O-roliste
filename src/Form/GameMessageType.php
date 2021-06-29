@@ -21,7 +21,7 @@ class GameMessageType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Envoyer',
-                'attr'=>['class'=>'btn btn-danger'],
+                'attr'=>['class'=>'btn btn-danger btn-sm'],
             ])
         ;
     }

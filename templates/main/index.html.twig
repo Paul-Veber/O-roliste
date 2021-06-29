@@ -51,20 +51,22 @@
 						<p class="card-text text-truncate">{{ userFive.description}}
 						</p>
 						<div>
-							<a href="{{path('user_read',{'id': userFive.id}) }}">
-								<button class="btn btn-danger btn-sm" type="button">Afficher plus de détails</button>
+							<a href="{{path('user_read',{'id': userFive.id}) }}" class="btn btn-danger btn-sm">
+								Voir le profil
 							</a>
 
 							{% if is_granted('ROLE_USER') %}
-
-								{% if is_granted('IS_USER', userFive) %}
-										<form action="{{ path('friend_add', {id: userFive.id}) }}" method="post" class="d-inline">
-										<button class="btn btn-danger">Ajouter en ami</button>
+								{% if is_granted('IS_NOT_USER', userFive) %}
+									<a href="{{path('conversation_add',{'id': userFive.id}) }}" class="btn btn-danger btn-sm">
+										Message
+									</a>
+									<form action="{{ path('friend_add', {id: userFive.id}) }}" method="post" class="d-inline">
+										<button class="btn btn-danger btn-sm">Ajouter en ami</button>
 										<input type="hidden" name="_method" value="add">
 										<input type="hidden" name="_token" value="{{ csrf_token('addFriend') }}">
 									</form>
-									{% endif %}
-									
+								{% endif %}
+
 							{% endif %}
 
 						</div>
@@ -129,10 +131,14 @@
 							</p>
 							<div>
 								<a href="{{path('user_read',{'id': userFive.id}) }}">
-									<button class="btn btn-danger btn-sm" type="button">Afficher plus de détails</button>
+									<button class="btn btn-danger btn-sm" type="button">Voir le profil</button>
 								</a>
 
-								{% if is_granted('FRIEND_ADD', userFive) %}
+								{% if is_granted('IS_NOT_USER', userFive) %}
+									<a href="{{path('conversation_add',{'id': userFive.id}) }}" class="btn btn-danger btn-sm">
+										Message
+									</a>
+
 									<form action="{{ path('friend_add', {id: userFive.id}) }}" method="post" class="d-inline">
 
 										<button class="btn btn-danger btn-sm">Ajouter en ami</button>
