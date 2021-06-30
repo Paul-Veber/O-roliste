@@ -47,7 +47,7 @@ class MessageController extends AbstractController
      * @param Request $request
      * @return void
      */
-    public function delete(MessageUser $messageUser, User $user, Request $request)
+    public function delete(MessageUser $messageUser, Request $request)
     {
         $token = $request->request->get('_token');
         if ($this->isCsrfTokenValid('delete' . $messageUser->getId(), $token)) {
