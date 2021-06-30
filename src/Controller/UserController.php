@@ -50,10 +50,12 @@ class UserController extends AbstractController
      */
     public function read(User $user, GameRepository $gameRepository): Response
     {
+        $inviteOnGames = $user->getGuests();
         $game = $gameRepository->findByCreatorId($user->getId());
         return $this->render('user/read.html.twig', [
             'gamesCreate' => $game,
             'user' => $user,
+            'inviteOnGames' => $inviteOnGames
         ]);
     }
     
