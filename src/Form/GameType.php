@@ -60,7 +60,7 @@ class GameType extends AbstractType
                 'required' => false,
             ])
             ->add('frequency', TextType::class,[
-                'label'=>"Frequence des parties *",
+                'label'=>"Fréquence des parties *",
                 'constraints'=>[
                     new NotBlank(['message'=>'ne peut être vide']),
                 ],
