@@ -53,7 +53,7 @@
 	{% if is_granted('ROLE_USER') %}
 		{#}check if gamesCreate is empty #}
 		{% if gamesCreate %}
-			<h2>Parties créer</h2>
+			<h2>Parties crées</h2>
 
 			{% for gameCreate in gamesCreate %}
 				<div class="card mb-3" style="max-width: 100%;">
@@ -87,7 +87,7 @@
 		{% endif %}
 
 		{% if inviteOnGames is not empty %}
-			<h2>Parties Rejointes</h2>
+			<h2>Parties rejointes</h2>
 			{% for game in inviteOnGames %}
 				<div class="card mb-3" style="max-width: 100%;">
 					<div class="row g-0">
