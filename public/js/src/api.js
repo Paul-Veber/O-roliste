@@ -19,9 +19,7 @@ export const fetchData = (endpoint , dataProcess) => {
       })
 
       .then((data) => {
-        const result = dataProcess(data);
-        console.log(result);
-        return result
+        dataProcess(data);
       });
   }
 

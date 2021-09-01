@@ -1,7 +1,16 @@
-{% extends 'base.html.twig' %}
-
-{% block body %}
-	<div class="overflow-auto card" id="userMessages" style="max-height: 35rem;">
+{% extends 'base.html.twig' %} {% block body %}
+<form id="addMessage">
+  <div class="form-group">
+    <textarea class="form-control" id="textBody" rows="3"></textarea>
+    <button class="btn btn-danger">Envoyer</button>
+  </div>
+</form>
+<div
+  class="overflow-auto card"
+  id="userMessages"
+  style="max-height: 35rem"
+></div>
+<!-- <div class="overflow-auto card" id="userMessages" style="max-height: 35rem;">
 		{% for convMessage in convMessages %}
 			<div class="card mt-1">
 				<div class="card-header">
@@ -22,13 +31,7 @@
 				</div>
 			</div>
 		{% endfor %}
-	</div>
-	<form id="addMessage">
-		<div class="form-group">
-			<textarea class="form-control" id="textBody" rows="3"></textarea>
-			<button class="btn btn-danger">Envoyer</button>
-		</div>
-	</form>
+	</div> -->
 
-	<script src="/js/main.js" type="module"></script>
+<script src="/js/main.js" type="module"></script>
 {% endblock %}

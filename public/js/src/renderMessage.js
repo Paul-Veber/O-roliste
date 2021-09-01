@@ -1,47 +1,73 @@
 import { fetchData } from "./api.js"
 
-const messageButtons = `
-<a href="{{ path('game_message_edit',{'id':idGame,'idMessage':convMessage.id}) }}">
-							<button class="btn btn-danger">Editer</button>
-						</a>
-						<form method="post" class="d-inline" action="{{ path('game_message_delete', {'id':idGame,'idMessage':convMessage.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer ce message ?');">
-							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ convMessage.id) }}">
-							<button class="btn btn-danger">Supprimer</button>
-						</form>`
+const messageContainer = document.querySelector('#userMessages')
+const messageList = []
 
-const currentUser = document.querySelector('#user')
-const messageCustomize = user => {
-    return user.username === fetchData ? messageButtons : ''
-}
+const conversationId = location.pathname.split('/')[2]
+const apiRoute = `/api/v1/message/user/conversation/${conversationId}`
 
-const updated = convMessage => {
-    return convMessage.updatedAt ? convMessage.updatedAt : ""
-}
-
-const message =(convMessage, user) => `
+/**
+ *template for a message 
+ * @param {object} convMessage 
+ * @param {object} user 
+ * @returns {string}
+ */
+const message = (convMessage, user) => {
+    return `
 <div class="card mt-1">
-				<div class="card-header">
-					<img src="${user.avatar}" class="rounded-circle img-thumbnail" width="75" alt="Avatar de ${user.username}">
-					${user.username}
-                    ${messageCustomize(user)}
-				</div>
-				<div class="card-body">
-					<p>${convMessage.body}</p>
-					<footer class="blockquote-footer">Posté le :
-						${convMessage.createdAt}
-						${updated(convMessage)}</footer>
-				</div>
-			</div>`
-
-export const oneMessage = (convMessage, divId) => {
-    const messageDiv = document.querySelector(`#${divId}`)
-    messageDiv.innerHTML += message(convMessage.user, convMessage)
+	<div class="card-header">
+		${user.username}
+	</div>
+	<div class="card-body">
+		<p>${convMessage.body}</p>
+		<footer class="blockquote-footer">Posté le :
+			${convMessage.createdAt}
+		</footer>
+	</div>
+</div>`
 }
 
-export const AllMessage = (convMessages, divId) => {
+const addMessageToList = (convMessage) => {
+    messageList.push(convMessage.id)
+}
 
+export const oneMessage = (convMessage) => {
+    addMessageToList(convMessage)
+    const messagestring = message(convMessage, convMessage.user)
+    const messageDiv = document.createElement('div')
+    messageDiv.innerHTML = messagestring
+    messageContainer.prepend(messageDiv)
+}
+
+const checkMessage = (convMessage) => {
+    const messageCheck = messageList.indexOf(convMessage.id)
+    if (messageCheck === -1) {
+        console.log('generate_message')
+        oneMessage(convMessage)
+    }
+}
+
+export const renderLastMessages = () => {
+    console.log('bla')
+    const checkEveryMessage = (convMessages) => {
+        convMessages.forEach(convMessage => {
+            checkMessage(convMessage)
+        })
+    }
+    fetchData(apiRoute, checkEveryMessage)
+}
+
+/**
+ * render every message in bdd
+ * @param {array} convMessages 
+ */
+const AllMessage = (convMessages) => {
     convMessages.forEach(convMessage => {
-        const messagesDiv = document.querySelector(`#${divId}`)
-        messagesDiv.innerhtml += message(convMessage.user, convMessage)
-    });
+        addMessageToList(convMessage)
+        messageContainer.innerHTML += message(convMessage, convMessage.user)
+    })
+}
+
+export const renderAllMessage = () => {
+    fetchData(apiRoute, AllMessage)
 }

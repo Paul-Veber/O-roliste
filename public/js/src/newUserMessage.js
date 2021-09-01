@@ -1,5 +1,5 @@
-import { sendingApiConfing, sendData, fetchData } from "./api.js"
-import { oneMessage } from "./renderMessage.js"
+import { sendingApiConfing, sendData } from "./api.js"
+import { renderLastMessages } from "./renderMessage.js"
 
 const dataFromForm = () => {
     const bodyMessage = document.querySelector('#textBody').value
@@ -19,17 +19,10 @@ const formToApiConfig = () => sendingApiConfing(dataFromForm(), "POST")
 const conversationId = location.pathname.split('/')[2]
 const apiRoute = `/api/v1/message/user/conversation/${conversationId}`
 
-const apiCallback = (response) => {
-    console.log(response)
-}
-
-const displayNewMessage = convMessage => {
-    oneMessage(convMessage, 'userMessages')
-}
-
 const afterResponse = (response) => {
     console.log(response)
-    location.reload()
+    renderLastMessages()
+    /* location.reload() */
 }
 
 /**
@@ -37,9 +30,8 @@ const afterResponse = (response) => {
  * @param {event} evt 
  */
 export const addMessage = evt => {
-    //evt.preventDefault()
+    evt.preventDefault()
     console.log(formToApiConfig())
     sendData(apiRoute, formToApiConfig(), afterResponse)
-
 }
 

@@ -3,6 +3,7 @@
 namespace App\Security\Voter;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -12,7 +13,7 @@ class GameVoter extends Voter
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, ['GAME_EDIT'])
+        return in_array($attribute, ['GAME_EDIT', 'GAME_SECRETINFORMATION'])
             && $subject instanceof \App\Entity\Game;
     }
 
@@ -31,8 +32,12 @@ class GameVoter extends Voter
                     return true;
                     break;
                 }
+            case 'GAME_SECRETINFORMATION':
+                if ($subject->getCreator() == $user || $subject->getGuests()->contains($user)) {
+                    return true;
+                    break;
+                }
         }
-
         return false;
     }
 }

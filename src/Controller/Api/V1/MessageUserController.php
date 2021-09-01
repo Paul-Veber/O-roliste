@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
 /**
  * @Route("/api/v1/message", name="api_v1_message_")
  */
@@ -38,9 +39,10 @@ class MessageUserController extends AbstractController
      * */
     public function browse(MessageUserRepository $messageUserRepository, Conversation $conversation)
     {
-        $message = $messageUserRepository->findByConvId($conversation->getId());
-        return $this->json($message, Response::HTTP_OK);
+        $message = $messageUserRepository->findByConvId($conversation);
+        return $this->json($message, Response::HTTP_OK, [], ['groups' => ['message', 'user']]);
     }
+
 
     /**     
      * @Route("/user/conversation/{id}", name="addUserMessage", methods={"POST"}, requirements={"id": "\d+"})

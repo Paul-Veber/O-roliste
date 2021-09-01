@@ -27,12 +27,6 @@ class GameController extends AbstractController
         ]);
     }
 
-    public function autorisationCheck(Game $game)
-    {
-        $currentUser = $this->getUser();
-
-        return $game->getGuests()->contains($currentUser) || $game->getCreator() == $currentUser;
-    }
 
     /**
      * @Route("/{id}", name="read", requirements={"id"="\d+"})
@@ -42,12 +36,10 @@ class GameController extends AbstractController
         //take all the message per id
         $gameMessages = $gameMessageRepository->findByGameId($game->getId());
         $idGame = $game->getId();
-        $autorisation = $this->autorisationCheck($game);
         return $this->render('game/read.html.twig', [
             'idGame' => $idGame,
             'gameMessages' => $gameMessages,
             'game' => $game,
-            'autorisation' => $autorisation,
         ]);
     }
 

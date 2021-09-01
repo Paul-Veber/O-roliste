@@ -79,13 +79,14 @@ class InvitationController extends AbstractController
             } else {
                 $error = "L'utilisateur est déjà sur cette partie";
             }
+        } else {$error = "il y'a trop de joueurs sur cette table";}
 
             return $this->render('user/read.html.twig',[
                 'user' => $user,
                 'error' => $error,
                 'gamesCreate' => $gameRepository->findByCreatorId($user->getId())
             ]);
-        }
+        
     }
 
     /**

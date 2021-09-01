@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\MessageUserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=MessageUserRepository::class)
@@ -14,16 +15,19 @@ class MessageUser
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("message")
      */
     private $id;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups("message")
      */
     private $body;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("message")
      */
     private $createdAt;
 
@@ -39,12 +43,13 @@ class MessageUser
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="messageUsers")
+     * @groups("user")
      */
     private $user;
 
     public function __construct()
     {
-        $this->createdAt=new \Datetime();
+        $this->createdAt = new \Datetime();
     }
 
     public function getId(): ?int
